@@ -1,0 +1,14 @@
+database:
+  dsn: ${PG_DSN}
+
+extension:
+  master_generator: false
+  cors_enabled: false
+  security_enabled: true
+  gin_mode: ${GIN_MODE}
+
+business:
+  sign_valid_time_ms: ${SIGN_VALID_TIME_MS}
+
+log:
+  request_log_format: "${remote_ip} ${account_name} ${uri} ${method} ${status}"
