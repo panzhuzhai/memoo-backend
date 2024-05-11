@@ -1,0 +1,430 @@
+definitions:
+  config.Login:
+    properties:
+      address:
+        example: tb1pk7e88y59xje503pzsknn0z3mgpyvefagf2dlrkvlfxpnugy6shmq7qg7q4
+        type: string
+      chain:
+        example: Bitcoin
+        type: string
+      message:
+        example: "1710501746195"
+        type: string
+      publicKey:
+        type: string
+      signature:
+        example: IGSo5ZI0H7xpDizzG/1zAYvljp98GoTGIoVZwMLdYAmkMPBwZyvtbgbE1Vs0SogS3juBko3W9BZ5XpGkJY8JEYc=
+        type: string
+    required:
+    - address
+    - chain
+    - message
+    - signature
+    type: object
+  dto.PageDto:
+    properties:
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+    type: object
+  serializer.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  service.OtherLinksDto:
+    properties:
+      otherLinkUrl:
+        type: string
+      otherLinkUrlType:
+        default: other
+        type: string
+    type: object
+  service.ProjectCreateOrUpdateDto:
+    properties:
+      description:
+        type: string
+      otherLinks:
+        items:
+          $ref: '#/definitions/service.OtherLinksDto'
+        type: array
+      projectName:
+        type: string
+      ticker:
+        type: string
+      twitter:
+        type: string
+    type: object
+  service.TokenCreateOrUpdateDto:
+    properties:
+      contractAddress:
+        type: string
+      description:
+        type: string
+      lpContractAddress:
+        type: string
+      otherLinks:
+        items:
+          $ref: '#/definitions/service.OtherLinksDto'
+        type: array
+      projectName:
+        type: string
+      ticker:
+        type: string
+      tokenDescription:
+        type: string
+      tokenName:
+        type: string
+      twitter:
+        type: string
+    type: object
+  service.TokenListReqDto:
+    properties:
+      pageNumber:
+        type: integer
+      pageSize:
+        type: integer
+    type: object
+  service.UserCreateOrUpdateDto:
+    properties:
+      twitter:
+        type: string
+      userBio:
+        type: string
+      userName:
+        type: string
+      websiteUrl:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: login by wallet
+      parameters:
+      - description: login parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/config.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: login
+  /api/v1/web-oriented/ido-active:
+    get:
+      consumes:
+      - application/json
+      description: ido
+      parameters:
+      - description: IdoActive parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PageDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented ido-active
+  /api/v1/web-oriented/ido-active-detail:
+    get:
+      consumes:
+      - application/json
+      description: ido
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented ido-active-detail
+  /api/v1/web-oriented/ido-completed:
+    get:
+      consumes:
+      - application/json
+      description: ido
+      parameters:
+      - description: IdoCompleted parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PageDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented ido-completed
+  /api/v1/web-oriented/ido-launched-detail:
+    get:
+      consumes:
+      - application/json
+      description: ido
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented ido-launched-detail
+  /api/v1/web-oriented/ido-launched-detail-top10:
+    get:
+      consumes:
+      - application/json
+      description: ido
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented ido-completed
+  /api/v1/web-oriented/ido-upcoming:
+    get:
+      consumes:
+      - application/json
+      description: ido
+      parameters:
+      - description: IdoUpcoming parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PageDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented ido-upcoming
+  /api/v1/web-oriented/ido-upcoming-detail:
+    get:
+      consumes:
+      - application/json
+      description: ido
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented ido-upcoming-detail
+  /api/v1/web-oriented/project:
+    post:
+      consumes:
+      - application/json
+      description: project
+      parameters:
+      - description: ProjectNewOrEdit parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.ProjectCreateOrUpdateDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented project
+  /api/v1/web-oriented/token:
+    get:
+      consumes:
+      - application/json
+      description: token
+      parameters:
+      - description: TokenList parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TokenListReqDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented token
+    post:
+      consumes:
+      - application/json
+      description: token
+      parameters:
+      - description: TokenNewOrEdit parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TokenCreateOrUpdateDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented token
+  /api/v1/web-oriented/user:
+    post:
+      consumes:
+      - application/json
+      description: game
+      parameters:
+      - description: UserNewOrEdit parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.UserCreateOrUpdateDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: special game
+  /api/v1/web-oriented/user-view-others:
+    get:
+      consumes:
+      - application/json
+      description: User
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-web-oriented user-view-others
+  /api/v1/web-unauthorized/top-creators:
+    get:
+      consumes:
+      - application/json
+      description: creators
+      parameters:
+      - description: TopCreators  parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PageDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-unauthorized top-creators
+  /api/v1/web-unauthorized/top-tokens:
+    get:
+      consumes:
+      - application/json
+      description: Tokens
+      parameters:
+      - description: TopTokens parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PageDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-unauthorized top-tokens
+  /api/v1/web-unauthorized/trending-creators:
+    get:
+      consumes:
+      - application/json
+      description: creators
+      parameters:
+      - description: TrendingCreators parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PageDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-unauthorized trending-creators
+  /api/v1/web-unauthorized/trending-tokens:
+    get:
+      consumes:
+      - application/json
+      description: Tokens
+      parameters:
+      - description: TrendingTokens parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PageDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-unauthorized trending-tokens
+  /api/v1/web-web-oriented/user-view-others-list:
+    get:
+      consumes:
+      - application/json
+      description: User
+      parameters:
+      - description: UserViewOthersList parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PageDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-web-oriented user-view-others-list
+swagger: "2.0"

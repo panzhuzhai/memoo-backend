@@ -1,0 +1,662 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/v1/auth/login": {
+            "post": {
+                "description": "login by wallet",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "login",
+                "parameters": [
+                    {
+                        "description": "login parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/config.Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-active": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-active",
+                "parameters": [
+                    {
+                        "description": "IdoActive parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-active-detail": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-active-detail",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-completed": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-completed",
+                "parameters": [
+                    {
+                        "description": "IdoCompleted parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-launched-detail": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-launched-detail",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-launched-detail-top10": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-completed",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-upcoming": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-upcoming",
+                "parameters": [
+                    {
+                        "description": "IdoUpcoming parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-upcoming-detail": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-upcoming-detail",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/project": {
+            "post": {
+                "description": "project",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented project",
+                "parameters": [
+                    {
+                        "description": "ProjectNewOrEdit parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.ProjectCreateOrUpdateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/token": {
+            "get": {
+                "description": "token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented token",
+                "parameters": [
+                    {
+                        "description": "TokenList parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TokenListReqDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented token",
+                "parameters": [
+                    {
+                        "description": "TokenNewOrEdit parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TokenCreateOrUpdateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/user": {
+            "post": {
+                "description": "game",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "special game",
+                "parameters": [
+                    {
+                        "description": "UserNewOrEdit parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.UserCreateOrUpdateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/user-view-others": {
+            "get": {
+                "description": "User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-web-oriented user-view-others",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-unauthorized/top-creators": {
+            "get": {
+                "description": "creators",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-unauthorized top-creators",
+                "parameters": [
+                    {
+                        "description": "TopCreators  parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-unauthorized/top-tokens": {
+            "get": {
+                "description": "Tokens",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-unauthorized top-tokens",
+                "parameters": [
+                    {
+                        "description": "TopTokens parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-unauthorized/trending-creators": {
+            "get": {
+                "description": "creators",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-unauthorized trending-creators",
+                "parameters": [
+                    {
+                        "description": "TrendingCreators parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-unauthorized/trending-tokens": {
+            "get": {
+                "description": "Tokens",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-unauthorized trending-tokens",
+                "parameters": [
+                    {
+                        "description": "TrendingTokens parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-web-oriented/user-view-others-list": {
+            "get": {
+                "description": "User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-web-oriented user-view-others-list",
+                "parameters": [
+                    {
+                        "description": "UserViewOthersList parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "config.Login": {
+            "type": "object",
+            "required": [
+                "address",
+                "chain",
+                "message",
+                "signature"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "example": "tb1pk7e88y59xje503pzsknn0z3mgpyvefagf2dlrkvlfxpnugy6shmq7qg7q4"
+                },
+                "chain": {
+                    "type": "string",
+                    "example": "Bitcoin"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "1710501746195"
+                },
+                "publicKey": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string",
+                    "example": "IGSo5ZI0H7xpDizzG/1zAYvljp98GoTGIoVZwMLdYAmkMPBwZyvtbgbE1Vs0SogS3juBko3W9BZ5XpGkJY8JEYc="
+                }
+            }
+        },
+        "dto.PageDto": {
+            "type": "object",
+            "properties": {
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                }
+            }
+        },
+        "serializer.Response": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.OtherLinksDto": {
+            "type": "object",
+            "properties": {
+                "otherLinkUrl": {
+                    "type": "string"
+                },
+                "otherLinkUrlType": {
+                    "type": "string",
+                    "default": "other"
+                }
+            }
+        },
+        "service.ProjectCreateOrUpdateDto": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "otherLinks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.OtherLinksDto"
+                    }
+                },
+                "projectName": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "twitter": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TokenCreateOrUpdateDto": {
+            "type": "object",
+            "properties": {
+                "contractAddress": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "lpContractAddress": {
+                    "type": "string"
+                },
+                "otherLinks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.OtherLinksDto"
+                    }
+                },
+                "projectName": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "tokenDescription": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "twitter": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TokenListReqDto": {
+            "type": "object",
+            "properties": {
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.UserCreateOrUpdateDto": {
+            "type": "object",
+            "properties": {
+                "twitter": {
+                    "type": "string"
+                },
+                "userBio": {
+                    "type": "string"
+                },
+                "userName": {
+                    "type": "string"
+                },
+                "websiteUrl": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
