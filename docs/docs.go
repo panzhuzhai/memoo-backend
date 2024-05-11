@@ -15,41 +15,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/asset/page": {
-            "get": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get asset page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.PageAssetDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/auth/login": {
             "post": {
                 "description": "login by wallet",
@@ -81,111 +46,228 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/game-oriented/asset-owner": {
+        "/api/v1/web-oriented/ido-active": {
             "get": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get game-oriented asset-owner page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/game-oriented/asset-status-batch": {
-            "put": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get game-oriented asset-status-batch page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.StatusChangeBatchDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/game-oriented/frozen-asset": {
-            "get": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get game-oriented frozen-asset page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/special/collection": {
-            "put": {
-                "description": "game",
+                "description": "ido",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "special collection",
+                "summary": "web-oriented ido-active",
                 "parameters": [
                     {
-                        "description": "game_asset parameters",
+                        "description": "IdoActive parameters",
                         "name": "request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.CollectionEditDto"
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-active-detail": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-active-detail",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-completed": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-completed",
+                "parameters": [
+                    {
+                        "description": "IdoCompleted parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-launched-detail": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-launched-detail",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-launched-detail-top10": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-completed",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-upcoming": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-upcoming",
+                "parameters": [
+                    {
+                        "description": "IdoUpcoming parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/ido-upcoming-detail": {
+            "get": {
+                "description": "ido",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented ido-upcoming-detail",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/project": {
+            "post": {
+                "description": "project",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented project",
+                "parameters": [
+                    {
+                        "description": "ProjectNewOrEdit parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.ProjectCreateOrUpdateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/token": {
+            "get": {
+                "description": "token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented token",
+                "parameters": [
+                    {
+                        "description": "TokenList parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TokenListReqDto"
                         }
                     }
                 ],
@@ -199,22 +281,22 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "game",
+                "description": "token",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "special collection",
+                "summary": "web-oriented token",
                 "parameters": [
                     {
-                        "description": "game_asset parameters",
+                        "description": "TokenNewOrEdit parameters",
                         "name": "request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.CollectionDto"
+                            "$ref": "#/definitions/service.TokenCreateOrUpdateDto"
                         }
                     }
                 ],
@@ -228,8 +310,8 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/special/game": {
-            "put": {
+        "/api/v1/web-oriented/user": {
+            "post": {
                 "description": "game",
                 "consumes": [
                     "application/json"
@@ -240,12 +322,12 @@ const docTemplate = `{
                 "summary": "special game",
                 "parameters": [
                     {
-                        "description": "game parameters",
+                        "description": "UserNewOrEdit parameters",
                         "name": "request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.GameUpdateDto"
+                            "$ref": "#/definitions/service.UserCreateOrUpdateDto"
                         }
                     }
                 ],
@@ -257,27 +339,18 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
-            "post": {
-                "description": "game",
+            }
+        },
+        "/api/v1/web-oriented/user-view-others": {
+            "get": {
+                "description": "User",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "special game",
-                "parameters": [
-                    {
-                        "description": "game parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.GameCreateDto"
-                        }
-                    }
-                ],
+                "summary": "web-web-oriented user-view-others",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -288,155 +361,19 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/special/game-genre": {
-            "post": {
-                "description": "game",
+        "/api/v1/web-unauthorized/top-creators": {
+            "get": {
+                "description": "creators",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "special game-genre",
+                "summary": "web-unauthorized top-creators",
                 "parameters": [
                     {
-                        "description": "game_asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.GameGenreDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/special/game_key": {
-            "put": {
-                "description": "game_key",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "special game_key",
-                "parameters": [
-                    {
-                        "description": "game parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.GameRefreshKeyDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/asset": {
-            "get": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented asset page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.StatusChangeBatchDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/assets": {
-            "get": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented assets page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.PageAssetDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/assets-not-on-sale": {
-            "get": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented assets-not-on-sale page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
+                        "description": "TopCreators  parameters",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -455,23 +392,19 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/web-oriented/assets-on-sale": {
+        "/api/v1/web-unauthorized/top-tokens": {
             "get": {
-                "description": "get asset page",
+                "description": "Tokens",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "get web-oriented assets-on-sale page",
+                "summary": "web-unauthorized top-tokens",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
+                        "description": "TopTokens parameters",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -490,637 +423,19 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/web-oriented/claim": {
+        "/api/v1/web-unauthorized/trending-creators": {
             "get": {
-                "description": "game",
+                "description": "creators",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "web-oriented claim",
+                "summary": "web-unauthorized trending-creators",
                 "parameters": [
                     {
-                        "description": "game_asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.ClaimDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/claim-address": {
-            "put": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented claim-address page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.AssetAddressBatchDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/claims": {
-            "get": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented claims page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.PageAssetDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/collections": {
-            "get": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented collections page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/deposit-list": {
-            "get": {
-                "description": "game",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "web-oriented deposit-list",
-                "parameters": [
-                    {
-                        "description": "game_asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.GameAssetDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/game-asset": {
-            "get": {
-                "description": "game",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "web-oriented game-asset",
-                "parameters": [
-                    {
-                        "description": "game_asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.GameAssetDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/locked-withdraw": {
-            "put": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented sale-confirm page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.StatusChangeBatchDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/off-shelf": {
-            "put": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented off-shelf page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.StatusChangeBatchDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/sale": {
-            "put": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented sale page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.StatusChangeBatchDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/sale-commit": {
-            "put": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented sale-commit page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.StatusChangeBatchDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/sale-confirm": {
-            "put": {
-                "description": "get asset page",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented sale-confirm page",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "page asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.SaleConfirmBatchDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-oriented/withdraw-list": {
-            "get": {
-                "description": "game",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "web-oriented withdraw-list",
-                "parameters": [
-                    {
-                        "description": "game_asset parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.GameAssetDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-unauthorized/game": {
-            "get": {
-                "description": "game",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "web-unauthorized game",
-                "parameters": [
-                    {
-                        "description": "game parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.GameItemDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-unauthorized/game-genre": {
-            "get": {
-                "description": "game",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "get web-oriented game-genre",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-unauthorized/games": {
-            "get": {
-                "description": "gameS",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "web-unauthorized games",
-                "parameters": [
-                    {
-                        "description": "games parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.PageGameDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/estimate/fee-per-claim": {
-            "get": {
-                "description": "estimate fee per claim",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "estimate fee per claim",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/launchpad/batch-nft-period": {
-            "get": {
-                "description": "nft period query",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "nft period batch query",
-                "parameters": [
-                    {
-                        "description": "batch parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.NftPeriodBatchQueryDTO"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/launchpad/nft-period": {
-            "get": {
-                "description": "nft period query",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "nft period query",
-                "parameters": [
-                    {
-                        "description": "period parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.NftPeriodQueryDTO"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/launchpad/whitelist": {
-            "get": {
-                "description": "whitelist query",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "whitelist query",
-                "parameters": [
-                    {
-                        "description": "whitelist parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.WhitelistQueryDTO"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/launchpad/whitelist-registration": {
-            "post": {
-                "description": "whitelist registeration",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "whitelist registeration",
-                "parameters": [
-                    {
-                        "description": "registeration parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.WhitelistRegistrationDTO"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/web-unauthorized/airdrop": {
-            "get": {
-                "description": "game",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "web-unauthorized airdrop",
-                "parameters": [
-                    {
-                        "description": "game_asset parameters",
+                        "description": "TrendingCreators parameters",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -1137,24 +452,57 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
-            "post": {
-                "description": "game",
+            }
+        },
+        "/api/v1/web-unauthorized/trending-tokens": {
+            "get": {
+                "description": "Tokens",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "web-unauthorized airdrop",
+                "summary": "web-unauthorized trending-tokens",
                 "parameters": [
                     {
-                        "description": "game_asset parameters",
+                        "description": "TrendingTokens parameters",
                         "name": "request",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.AirdropDto"
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-web-oriented/user-view-others-list": {
+            "get": {
+                "description": "User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-web-oriented user-view-others-list",
+                "parameters": [
+                    {
+                        "description": "UserViewOthersList parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
                         }
                     }
                 ],
@@ -1191,296 +539,12 @@ const docTemplate = `{
                     "type": "string",
                     "example": "1710501746195"
                 },
+                "publicKey": {
+                    "type": "string"
+                },
                 "signature": {
                     "type": "string",
                     "example": "IGSo5ZI0H7xpDizzG/1zAYvljp98GoTGIoVZwMLdYAmkMPBwZyvtbgbE1Vs0SogS3juBko3W9BZ5XpGkJY8JEYc="
-                }
-            }
-        },
-        "dto.AirdropDto": {
-            "type": "object",
-            "properties": {
-                "btcAddress": {
-                    "type": "string"
-                },
-                "channel": {
-                    "type": "string"
-                },
-                "ethAddress": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "loginAddress": {
-                    "type": "string"
-                },
-                "publicKey": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.AssetAddressBatchDto": {
-            "type": "object",
-            "properties": {
-                "assetIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "dto.ClaimDto": {
-            "type": "object",
-            "required": [
-                "collection"
-            ],
-            "properties": {
-                "collection": {
-                    "type": "string"
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
-                }
-            }
-        },
-        "dto.CollectionDto": {
-            "type": "object",
-            "properties": {
-                "channel": {
-                    "type": "string"
-                },
-                "collection": {
-                    "type": "string"
-                },
-                "collectionUri": {
-                    "type": "string"
-                },
-                "contractAddress": {
-                    "type": "string"
-                },
-                "contractType": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.CollectionEditDto": {
-            "type": "object",
-            "properties": {
-                "collectionUri": {
-                    "type": "string"
-                },
-                "contractAddress": {
-                    "type": "string"
-                },
-                "contractType": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                }
-            }
-        },
-        "dto.GameAssetDto": {
-            "type": "object",
-            "properties": {
-                "collection": {
-                    "type": "string"
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
-                },
-                "status": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            }
-        },
-        "dto.GameCreateDto": {
-            "type": "object",
-            "properties": {
-                "callbackUrl": {
-                    "type": "string"
-                },
-                "chain": {
-                    "type": "string"
-                },
-                "discord": {
-                    "type": "string"
-                },
-                "gameName": {
-                    "type": "string"
-                },
-                "genre": {
-                    "type": "string"
-                },
-                "introduction": {
-                    "type": "string"
-                },
-                "loginType": {
-                    "type": "string"
-                },
-                "logo": {
-                    "type": "string"
-                },
-                "platform": {
-                    "type": "string"
-                },
-                "privateKey": {
-                    "type": "string"
-                },
-                "projectIssuer": {
-                    "type": "string"
-                },
-                "publicKey": {
-                    "type": "string"
-                },
-                "shortExplanation": {
-                    "type": "string"
-                },
-                "sortNum": {
-                    "type": "integer"
-                },
-                "telegram": {
-                    "type": "string"
-                },
-                "twitter": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.GameGenreDto": {
-            "type": "object",
-            "required": [
-                "gameGenreCode",
-                "gameGenreName"
-            ],
-            "properties": {
-                "gameGenreCode": {
-                    "type": "string"
-                },
-                "gameGenreName": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.GameItemDto": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "type": "integer"
-                }
-            }
-        },
-        "dto.GameRefreshKeyDto": {
-            "type": "object",
-            "properties": {
-                "callbackUrl": {
-                    "type": "string"
-                },
-                "gameName": {
-                    "type": "string"
-                },
-                "privateKey": {
-                    "type": "string"
-                },
-                "publicKey": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.GameUpdateDto": {
-            "type": "object",
-            "properties": {
-                "callbackUrl": {
-                    "type": "string"
-                },
-                "chain": {
-                    "type": "string"
-                },
-                "discord": {
-                    "type": "string"
-                },
-                "gameName": {
-                    "type": "string"
-                },
-                "genre": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "introduction": {
-                    "type": "string"
-                },
-                "loginType": {
-                    "type": "string"
-                },
-                "logo": {
-                    "type": "string"
-                },
-                "platform": {
-                    "type": "string"
-                },
-                "projectIssuer": {
-                    "type": "string"
-                },
-                "shortExplanation": {
-                    "type": "string"
-                },
-                "sortNum": {
-                    "type": "integer"
-                },
-                "telegram": {
-                    "type": "string"
-                },
-                "twitter": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.NftPeriodBatchQueryDTO": {
-            "type": "object"
-        },
-        "dto.NftPeriodQueryDTO": {
-            "type": "object",
-            "required": [
-                "nft",
-                "periodIndex",
-                "tokenId"
-            ],
-            "properties": {
-                "nft": {
-                    "type": "string",
-                    "example": "0x376764e4071671eBAf6Cbab6A94aC97a46b983EE"
-                },
-                "periodIndex": {
-                    "type": "string",
-                    "example": "registration"
-                },
-                "tokenId": {
-                    "type": "integer",
-                    "example": 0
-                }
-            }
-        },
-        "dto.PageAssetDto": {
-            "type": "object",
-            "properties": {
-                "page": {
-                    "$ref": "#/definitions/dto.PageDto"
-                },
-                "status": {
-                    "type": "string"
                 }
             }
         },
@@ -1495,183 +559,6 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.PageGameDto": {
-            "type": "object",
-            "properties": {
-                "gameName": {
-                    "type": "string"
-                },
-                "genre": {
-                    "type": "string"
-                },
-                "pageNumber": {
-                    "type": "integer"
-                },
-                "pageSize": {
-                    "type": "integer"
-                }
-            }
-        },
-        "dto.SaleConfirmBatchDto": {
-            "type": "object",
-            "properties": {
-                "reqDatas": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/dto.StatusSaleConfirmDto"
-                    }
-                }
-            }
-        },
-        "dto.StatusChangeBatchDto": {
-            "type": "object",
-            "properties": {
-                "assets": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/dto.StatusChangeDto"
-                    }
-                }
-            }
-        },
-        "dto.StatusChangeDto": {
-            "type": "object",
-            "required": [
-                "assetUri"
-            ],
-            "properties": {
-                "assetId": {
-                    "type": "string"
-                },
-                "assetImageUri": {
-                    "type": "string"
-                },
-                "assetName": {
-                    "type": "string"
-                },
-                "assetUri": {
-                    "type": "string",
-                    "example": "https://meta-dev.bitcoinloot.co/equip/4295147586"
-                },
-                "collection": {
-                    "type": "string"
-                },
-                "fromStatus": {
-                    "type": "string"
-                },
-                "toStatus": {
-                    "type": "string"
-                }
-            }
-        },
-        "dto.StatusSaleConfirmDto": {
-            "type": "object",
-            "required": [
-                "assetId",
-                "assetUri"
-            ],
-            "properties": {
-                "assetId": {
-                    "type": "string"
-                },
-                "assetUri": {
-                    "type": "string",
-                    "example": "https://meta-dev.bitcoinloot.co/equip/4295147586"
-                },
-                "fromSAddress": {
-                    "type": "string"
-                },
-                "fromStatus": {
-                    "type": "string"
-                },
-                "nft": {
-                    "type": "string"
-                },
-                "toAddress": {
-                    "type": "string"
-                },
-                "toStatus": {
-                    "type": "string"
-                },
-                "transctionFlag": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "dto.WhitelistQueryDTO": {
-            "type": "object",
-            "required": [
-                "address",
-                "nft",
-                "periodIndex",
-                "tokenId"
-            ],
-            "properties": {
-                "address": {
-                    "type": "string",
-                    "example": "tb1pk7e88y59xje503pzsknn0z3mgpyvefagf2dlrkvlfxpnugy6shmq7qg7q4"
-                },
-                "nft": {
-                    "type": "string",
-                    "example": "0x376764e4071671eBAf6Cbab6A94aC97a46b983EE"
-                },
-                "periodIndex": {
-                    "type": "string",
-                    "example": "registration"
-                },
-                "tokenId": {
-                    "type": "integer",
-                    "example": 0
-                }
-            }
-        },
-        "dto.WhitelistRegistrationDTO": {
-            "type": "object",
-            "required": [
-                "address",
-                "chain",
-                "message",
-                "nft",
-                "periodIndex",
-                "publicKey",
-                "signature",
-                "tokenId"
-            ],
-            "properties": {
-                "address": {
-                    "type": "string",
-                    "example": "tb1pk7e88y59xje503pzsknn0z3mgpyvefagf2dlrkvlfxpnugy6shmq7qg7q4"
-                },
-                "chain": {
-                    "type": "string",
-                    "example": "Bitcoin or Ethereum"
-                },
-                "message": {
-                    "type": "string",
-                    "example": "1710501746195"
-                },
-                "nft": {
-                    "type": "string",
-                    "example": "0x376764e4071671eBAf6Cbab6A94aC97a46b983EE"
-                },
-                "periodIndex": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "publicKey": {
-                    "type": "string",
-                    "example": "xxx"
-                },
-                "signature": {
-                    "type": "string",
-                    "example": "IGSo5ZI0H7xpDizzG/1zAYvljp98GoTGIoVZwMLdYAmkMPBwZyvtbgbE1Vs0SogS3juBko3W9BZ5XpGkJY8JEYc="
-                },
-                "tokenId": {
-                    "type": "integer",
-                    "example": 0
-                }
-            }
-        },
         "serializer.Response": {
             "type": "object",
             "properties": {
@@ -1680,6 +567,104 @@ const docTemplate = `{
                 },
                 "data": {},
                 "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.OtherLinksDto": {
+            "type": "object",
+            "properties": {
+                "otherLinkUrl": {
+                    "type": "string"
+                },
+                "otherLinkUrlType": {
+                    "type": "string",
+                    "default": "other"
+                }
+            }
+        },
+        "service.ProjectCreateOrUpdateDto": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "otherLinks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.OtherLinksDto"
+                    }
+                },
+                "projectName": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "twitter": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TokenCreateOrUpdateDto": {
+            "type": "object",
+            "properties": {
+                "contractAddress": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "lpContractAddress": {
+                    "type": "string"
+                },
+                "otherLinks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.OtherLinksDto"
+                    }
+                },
+                "projectName": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "tokenDescription": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "twitter": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TokenListReqDto": {
+            "type": "object",
+            "properties": {
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.UserCreateOrUpdateDto": {
+            "type": "object",
+            "properties": {
+                "twitter": {
+                    "type": "string"
+                },
+                "userBio": {
+                    "type": "string"
+                },
+                "userName": {
+                    "type": "string"
+                },
+                "websiteUrl": {
                     "type": "string"
                 }
             }

@@ -11,10 +11,9 @@ import (
 )
 
 // @Summary web-web-oriented user-view-others
-// @Description  gameS
+// @Description  User
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.PageDto  true "games parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/user-view-others [get]
 func UserViewOthers(c *gin.Context) {
@@ -24,10 +23,10 @@ func UserViewOthers(c *gin.Context) {
 }
 
 // @Summary web-web-oriented user-view-others-list
-// @Description  gameS
+// @Description  User
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.PageDto  true "games parameters"
+// @Param  request body  dto.PageDto  true "UserViewOthersList parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-web-oriented/user-view-others-list [get]
 func UserViewOthersList(c *gin.Context) {
@@ -46,7 +45,7 @@ func UserViewOthersList(c *gin.Context) {
 // @Description  game
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.GameCreateDto  true "game parameters"
+// @Param  request body  service.UserCreateOrUpdateDto  true "UserNewOrEdit parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/user [post]
 func UserNewOrEdit(c *gin.Context) {
@@ -78,23 +77,4 @@ func UserNewOrEdit(c *gin.Context) {
 	}
 	resData, err := service.UserNewOrEdit(param, address, profileImages, bannerUrls)
 	serializer.WriteData2Front(c, resData, err)
-}
-
-// @Summary special game
-// @Description  game
-// @Accept  json
-// @Produce  json
-// @Param  request body  dto.GameCreateDto  true "game parameters"
-// @Success 200 {object} serializer.Response
-// @Router /api/v1/web-oriented/UserNew [post]
-func UserNew(c *gin.Context) {
-	//address := jwt.GetAddress(c)
-	var param *service.UserCreateOrUpdateDto
-	err := c.BindJSON(&param)
-	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
-		return
-	}
-	//resData, err := service.UserNewOrEdit(param, address)
-	//serializer.WriteData2Front(c, resData, err)
 }

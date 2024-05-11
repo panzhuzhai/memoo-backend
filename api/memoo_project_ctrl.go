@@ -9,13 +9,13 @@ import (
 	"memoo-backend/service"
 )
 
-// @Summary special game
-// @Description  game
+// @Summary web-oriented project
+// @Description  project
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.GameCreateDto  true "game parameters"
+// @Param  request body  service.ProjectCreateOrUpdateDto  true "ProjectNewOrEdit parameters"
 // @Success 200 {object} serializer.Response
-// @Router /api/v1/web-oriented/user [post]
+// @Router /api/v1/web-oriented/project [post]
 func ProjectNewOrEdit(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	err := c.Request.ParseMultipartForm(32 << 20) // 限制上传文件大小为32MB

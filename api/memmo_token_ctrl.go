@@ -9,10 +9,11 @@ import (
 	"memoo-backend/service"
 )
 
-// @Summary web-oriented ido-launched-detail
-// @Description  gameS
+// @Summary web-oriented token
+// @Description  token
 // @Accept  json
 // @Produce  json
+// @Param  request body  service.TokenListReqDto  true "TokenList parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/token [get]
 func TokenList(c *gin.Context) {
@@ -28,10 +29,10 @@ func TokenList(c *gin.Context) {
 }
 
 // @Summary web-oriented token
-// @Description  game
+// @Description  token
 // @Accept  json
 // @Produce  json
-// @Param  request body  service.TokenCreateOrUpdateDto  true "game parameters"
+// @Param  request body  service.TokenCreateOrUpdateDto  true "TokenNewOrEdit parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/token [post]
 func TokenNewOrEdit(c *gin.Context) {

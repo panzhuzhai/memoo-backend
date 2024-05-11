@@ -140,15 +140,15 @@ func IdoCompleted(param dto.PageDto, address string) (database.Paginator, error)
 func IdoUpcoming(param dto.PageDto, address string) (database.Paginator, error) {
 	return database.Paginator{}, nil
 }
-func IdoUpcomingDetail(param dto.PageDto, address string) (IdoUpcomingDetailRespDto, error) {
+func IdoUpcomingDetail(address string) (IdoUpcomingDetailRespDto, error) {
 	return IdoUpcomingDetailRespDto{}, nil
 }
 
-func IdoActiveDetail(param dto.PageDto, address string) (IdoActiveDetailRespDto, error) {
+func IdoActiveDetail(address string) (IdoActiveDetailRespDto, error) {
 	return IdoActiveDetailRespDto{}, nil
 }
 
-func IdoLaunchedDetail(param dto.PageDto, address string) (IdoLaunchedDetailRespDto, error) {
+func IdoLaunchedDetail(address string) (IdoLaunchedDetailRespDto, error) {
 	return IdoLaunchedDetailRespDto{}, nil
 }
 

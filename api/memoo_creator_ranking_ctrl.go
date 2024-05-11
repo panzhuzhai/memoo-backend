@@ -9,10 +9,10 @@ import (
 )
 
 // @Summary web-unauthorized trending-creators
-// @Description  gameS
+// @Description  creators
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.PageDto  true "games parameters"
+// @Param  request body  dto.PageDto  true "TrendingCreators parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-unauthorized/trending-creators [get]
 func TrendingCreators(c *gin.Context) {
@@ -27,10 +27,10 @@ func TrendingCreators(c *gin.Context) {
 }
 
 // @Summary web-unauthorized top-creators
-// @Description  gameS
+// @Description  creators
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.PageDto  true "games parameters"
+// @Param  request body  dto.PageDto  true "TopCreators  parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-unauthorized/top-creators [get]
 func TopCreators(c *gin.Context) {

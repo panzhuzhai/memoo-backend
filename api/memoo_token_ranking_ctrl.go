@@ -9,10 +9,10 @@ import (
 )
 
 // @Summary web-unauthorized trending-tokens
-// @Description  gameS
+// @Description  Tokens
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.PageDto  true "games parameters"
+// @Param  request body  dto.PageDto  true "TrendingTokens parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-unauthorized/trending-tokens [get]
 func TrendingTokens(c *gin.Context) {
@@ -27,10 +27,10 @@ func TrendingTokens(c *gin.Context) {
 }
 
 // @Summary web-unauthorized top-tokens
-// @Description  gameS
+// @Description  Tokens
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.PageDto  true "games parameters"
+// @Param  request body  dto.PageDto  true "TopTokens parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-unauthorized/top-tokens [get]
 func TopTokens(c *gin.Context) {

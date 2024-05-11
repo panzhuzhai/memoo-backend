@@ -10,9 +10,10 @@ import (
 )
 
 // @Summary web-oriented ido-upcoming
-// @Description  gameS
+// @Description  ido
 // @Accept  json
 // @Produce  json
+// @Param  request body  dto.PageDto  true "IdoUpcoming parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/ido-upcoming [get]
 func IdoUpcoming(c *gin.Context) {
@@ -28,10 +29,10 @@ func IdoUpcoming(c *gin.Context) {
 }
 
 // @Summary web-oriented ido-active
-// @Description  gameS
+// @Description  ido
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.PageDto  true "games parameters"
+// @Param  request body  dto.PageDto  true "IdoActive parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/ido-active [get]
 func IdoActive(c *gin.Context) {
@@ -47,10 +48,10 @@ func IdoActive(c *gin.Context) {
 }
 
 // @Summary web-oriented ido-completed
-// @Description  gameS
+// @Description  ido
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.PageDto  true "games parameters"
+// @Param  request body  dto.PageDto  true "IdoCompleted parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/ido-completed [get]
 func IdoCompleted(c *gin.Context) {
@@ -66,64 +67,45 @@ func IdoCompleted(c *gin.Context) {
 }
 
 // @Summary web-oriented ido-upcoming-detail
-// @Description  gameS
+// @Description  ido
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/ido-upcoming-detail [get]
 func IdoUpcomingDetail(c *gin.Context) {
-	var param dto.PageDto
 	address := jwt.GetAddress(c)
-	err := c.BindQuery(&param)
-	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
-		return
-	}
-	paginator, err := service.IdoUpcomingDetail(param, address)
-	serializer.WriteData2Front(c, paginator, err)
+	resp, err := service.IdoUpcomingDetail(address)
+	serializer.WriteData2Front(c, resp, err)
 }
 
 // @Summary web-oriented ido-active-detail
-// @Description  gameS
+// @Description  ido
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/ido-active-detail [get]
 func IdoActiveDetail(c *gin.Context) {
-	var param dto.PageDto
 	address := jwt.GetAddress(c)
-	err := c.BindQuery(&param)
-	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
-		return
-	}
-	paginator, err := service.IdoActiveDetail(param, address)
-	serializer.WriteData2Front(c, paginator, err)
+	resp, err := service.IdoActiveDetail(address)
+	serializer.WriteData2Front(c, resp, err)
 }
 
 // @Summary web-oriented ido-launched-detail
-// @Description  gameS
+// @Description  ido
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/ido-launched-detail [get]
 func IdoLaunchedDetail(c *gin.Context) {
-	var param dto.PageDto
 	address := jwt.GetAddress(c)
-	err := c.BindQuery(&param)
-	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
-		return
-	}
-	paginator, err := service.IdoLaunchedDetail(param, address)
-	serializer.WriteData2Front(c, paginator, err)
+	resp, err := service.IdoLaunchedDetail(address)
+	serializer.WriteData2Front(c, resp, err)
 }
 
 // @Summary web-oriented ido-completed
-// @Description  gameS
+// @Description  ido
 // @Accept  json
 // @Produce  json
-// @Param  request body  dto.PageDto  true "games parameters"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/ido-launched-detail-top10 [get]
 func IdoLaunchedDetailTop10List(c *gin.Context) {
