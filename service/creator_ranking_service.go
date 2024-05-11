@@ -7,6 +7,7 @@ import (
 
 /*******************response dto start*******************************************/
 type TrendingCreatorsRespDto struct {
+	UserProfileImageUrl       string  `json:"userProfileImageUrl"`
 	CreatorsName              string  `form:"creatorsName"  json:"creatorsName" `
 	CreatorsAddress           string  `form:"creatorsAddress" json:"creatorsAddress" `
 	TokensCreatedNum          int64   `form:"tokensCreatedNum" json:"tokensCreatedNum" `
@@ -18,6 +19,7 @@ type TrendingCreatorsRespDto struct {
 }
 
 type TopCreatorsRespDto struct {
+	UserProfileImageUrl      string  `json:"userProfileImageUrl"`
 	CreatorsName             string  `form:"creatorsName"  json:"creatorsName" `
 	TokensCreatedNum         int64   `form:"tokensCreatedNum" json:"tokensCreatedNum" `
 	AccumulativeMarketCap    float64 `form:"accumulativeMarketCap" json:"accumulativeMarketCap" `

@@ -3,11 +3,44 @@ package api
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"memoo-backend/dto"
 	"memoo-backend/middleware/jwt"
 	"memoo-backend/oss"
 	"memoo-backend/serializer"
 	"memoo-backend/service"
 )
+
+// @Summary web-web-oriented user-view-others
+// @Description  gameS
+// @Accept  json
+// @Produce  json
+// @Param  request body  dto.PageDto  true "games parameters"
+// @Success 200 {object} serializer.Response
+// @Router /api/v1/web-oriented/user-view-others [get]
+func UserViewOthers(c *gin.Context) {
+	address := jwt.GetAddress(c)
+	resp, err := service.UserViewOthers(address)
+	serializer.WriteData2Front(c, resp, err)
+}
+
+// @Summary web-web-oriented user-view-others-list
+// @Description  gameS
+// @Accept  json
+// @Produce  json
+// @Param  request body  dto.PageDto  true "games parameters"
+// @Success 200 {object} serializer.Response
+// @Router /api/v1/web-web-oriented/user-view-others-list [get]
+func UserViewOthersList(c *gin.Context) {
+	var param dto.PageDto
+	address := jwt.GetAddress(c)
+	err := c.BindQuery(&param)
+	if err != nil {
+		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		return
+	}
+	paginator, err := service.UserViewOthersList(param, address)
+	serializer.WriteData2Front(c, paginator, err)
+}
 
 // @Summary special game
 // @Description  game

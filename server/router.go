@@ -65,14 +65,37 @@ func NewRouter() *gin.Engine {
 		unauthorized.GET("trending-creators", api.TrendingCreators)
 		unauthorized.GET("top-creators", api.TopCreators)
 
+		//token Ranking
+		unauthorized.GET("trending-tokens", api.TrendingTokens)
+		unauthorized.GET("top-tokens", api.TopTokens)
 	}
 
 	webOrientedGroup := v1.Group("web-oriented/")
-
 	{
 		//user
 		webOrientedGroup.Use(initJwt.MiddlewareFunc())
+		webOrientedGroup.GET("user-view-others", api.UserViewOthers)
+		webOrientedGroup.GET("user-view-others-list", api.UserViewOthersList)
 		webOrientedGroup.POST("user", api.UserNewOrEdit)
+
+		//ido
+		webOrientedGroup.GET("ido-active", api.IdoActive)
+		webOrientedGroup.GET("ido-completed", api.IdoCompleted)
+		webOrientedGroup.GET("ido-upcoming", api.IdoUpcoming)
+
+		//ido-detail
+		webOrientedGroup.GET("ido-upcoming-detail", api.IdoUpcomingDetail)
+		webOrientedGroup.GET("ido-active-detail", api.IdoActiveDetail)
+		webOrientedGroup.GET("ido-launched-detail", api.IdoLaunchedDetail)
+		webOrientedGroup.GET("ido-launched-detail-top10", api.IdoLaunchedDetailTop10List)
+
+		//project
+		webOrientedGroup.POST("project", api.ProjectNewOrEdit)
+
+		//coin
+		webOrientedGroup.POST("token", api.TokenNewOrEdit)
+		webOrientedGroup.GET("token", api.TokenList)
+
 	}
 	return r
 }

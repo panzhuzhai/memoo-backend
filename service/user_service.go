@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"memoo-backend/dto"
 	"memoo-backend/middleware/database"
 	"memoo-backend/model"
 	"time"
@@ -17,7 +18,51 @@ type UserCreateOrUpdateDto struct {
 
 /*******************request dto end*******************************************/
 
+/*******************response dto start*******************************************/
+type ProjectSocialDto struct {
+	SocialUrl  string `json:"socialUrl" `
+	SocialType string `json:"socialType" `
+}
+
+type UserViewOthersRespDto struct {
+	TokenImageUrl            string             `json:"tokenImageUrl" `
+	TokensCreatedNum         int64              `form:"tokensCreatedNum" json:"tokensCreatedNum" `
+	AccumulativeMarketCap    float64            `form:"accumulativeMarketCap" json:"accumulativeMarketCap" `
+	AccumulativeATHMarketCap float64            `form:"accumulativeATHMarketCap"  json:"accumulativeATHMarketCap" `
+	TopTokenMarketCap        float64            `form:"accumulativeMarketCap" json:"accumulativeMarketCap" `
+	TopTokenATHMarketCap     float64            `form:"accumulativeATHMarketCap"  json:"accumulativeATHMarketCap" `
+	TopTokenHolders          int64              `form:"accumulativeHolders" json:"accumulativeHolders" `
+	TopTokenHoldersGrowth    int64              `form:"accumulativeHoldersGrowth" json:"accumulativeHoldersGrowth" `
+	TokenName                string             `form:"tokenName" json:"tokenName" `
+	Description              string             `json:"description"`
+	CreatorAddress           string             `json:"creatorAddress"`
+	CreatorSocialsAccount    string             `json:"creatorAddress"`
+	CreatorWebsiteUrl        string             `json:"creatorWebsiteUrl"`
+	CreatorTwitter           string             `json:"CreatorTwitter"`
+	ProjectSocial            []ProjectSocialDto `json:"projectSocial"`
+}
+
+type UserViewOthersListRespDto struct {
+	TokenImageUrl string `json:"tokenImageUrl" `
+	TokenName     string `json:"tokenName"`
+	Status        string `json:"status"`
+	TotalRaised   string `json:"totalRaised"`
+	LaunchDate    int64  `json:"launchDate" `
+	MeMooScore    string `json:"meMooScore" `
+	Emotion       string `json:"emotion" ` //WIF、FOMO、LEASH
+}
+
+/*******************response dto end*******************************************/
+
 /*******************service start*******************************************/
+func UserViewOthers(address string) (UserViewOthersRespDto, error) {
+	return UserViewOthersRespDto{}, nil
+}
+
+func UserViewOthersList(param dto.PageDto, address string) (database.Paginator, error) {
+	return database.Paginator{}, nil
+}
+
 func UserNewOrEdit(param *UserCreateOrUpdateDto, address string, bannerUrls []string, profileImageUrls []string) (*UserCreateOrUpdateDto, error) {
 	dbTx := database.DB.Begin()
 	var memooUser model.MemooUser

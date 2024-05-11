@@ -5,5 +5,5 @@ import (
 )
 
 func migration() {
-	_ = DB.AutoMigrate(&model.MemooCoin{})
+	_ = DB.AutoMigrate(&model.MemooToken{})
 }
