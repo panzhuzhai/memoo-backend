@@ -59,10 +59,19 @@ func NewRouter() *gin.Engine {
 		authGroup.POST("auth/logout", initJwt.LogoutHandler)
 	}
 
+	unauthorized := v1.Group("web-unauthorized/")
+	{
+		//Creator Ranking
+		unauthorized.GET("trending-creators", api.TrendingCreators)
+		unauthorized.GET("top-creators", api.TopCreators)
+
+	}
+
 	webOrientedGroup := v1.Group("web-oriented/")
+
 	{
 		//user
-		//webOrientedGroup.Use(initJwt.MiddlewareFunc())
+		webOrientedGroup.Use(initJwt.MiddlewareFunc())
 		webOrientedGroup.POST("user", api.UserNewOrEdit)
 	}
 	return r

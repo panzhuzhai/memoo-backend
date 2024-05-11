@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+/*******************request dto start*******************************************/
 type UserCreateOrUpdateDto struct {
 	UserName   string `form:"userName"  json:"userName" `
 	UserBio    string `form:"userBio" json:"userBio" `
@@ -14,6 +15,9 @@ type UserCreateOrUpdateDto struct {
 	WebsiteUrl string `form:"websiteUrl" json:"websiteUrl" `
 }
 
+/*******************request dto end*******************************************/
+
+/*******************service start*******************************************/
 func UserNewOrEdit(param *UserCreateOrUpdateDto, address string, bannerUrls []string, profileImageUrls []string) (*UserCreateOrUpdateDto, error) {
 	dbTx := database.DB.Begin()
 	var memooUser model.MemooUser
@@ -50,3 +54,5 @@ func UserNewOrEdit(param *UserCreateOrUpdateDto, address string, bannerUrls []st
 	dbTx.Commit()
 	return param, nil
 }
+
+/*******************service end*******************************************/
