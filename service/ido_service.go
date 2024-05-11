@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-/*******************request dto start*******************************************/
+/*******************respnose dto start*******************************************/
 
 type IdoActiveRespDto struct {
 	TokenImageUrl string `json:"tokenImageUrl" `
@@ -83,7 +83,7 @@ type IdoUpcomingDetailRespDto struct {
 type IdoActiveDetailRespDto struct {
 	MeMooScore  string `json:"meMooScore" `
 	EndsIn      int64  `json:"endsIn"`
-	Price       string `form:"price" json:"price" `
+	Price       string `json:"price" `
 	TotalRaised string `json:"totalRaised" `
 	Contributed string `json:"contributed" `
 	IdoDate     int64  `json:"idoDate"`
@@ -99,9 +99,9 @@ type IdoDateDto struct {
 	LpLock      bool    `json:"lpLock"`
 	Liquidity   bool    `json:"liquidity"`
 	FDV         int64   `json:"fdv"`
-	Volume24H   float64 `form:"volume24H"  json:"volume24H" `
-	Increase1H  float64 `form:"increase1H" json:"increase1H" `
-	Increase24H float64 `form:"increase24H" json:"increase24H" `
+	Volume24H   float64 `json:"volume24H" `
+	Increase1H  float64 `json:"increase1H" `
+	Increase24H float64 `json:"increase24H" `
 	MaxSupply   int64   `json:"maxSupply"`
 	AllTimeHigh string  `json:"allTimeHigh" `
 	AllTimeLow  string  `json:"allTimeLow" `
@@ -111,7 +111,7 @@ type IdoLaunchedDetailRespDto struct {
 	MeMooScore  string `json:"meMooScore" `
 	EndsIn      int64  `json:"endsIn"`
 	MarketCap   string `json:"marketCap" `
-	Price       string `form:"price" json:"price" `
+	Price       string `json:"price" `
 	TotalRaised string `json:"totalRaised" `
 	Contributed string `json:"contributed" `
 	Count       int64  `json:"count" `
@@ -126,7 +126,7 @@ type IdoLaunchedDetailTop10ListDto struct {
 	Proportion string `json:"proportion" `
 }
 
-/*******************response dto end*******************************************/
+/*******************respnose dto end*******************************************/
 
 /*******************service start*******************************************/
 func IdoActive(param dto.PageDto, address string) (database.Paginator, error) {

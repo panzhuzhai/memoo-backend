@@ -9,23 +9,23 @@ import (
 
 type TrendingTokensRespDto struct {
 	TokenImageUrl  string  `json:"tokenImageUrl" `
-	TokenName      string  `form:"tokenName"  json:"tokenName" `
-	Price          string  `form:"price" json:"price" `
-	Increase1H     float64 `form:"increase1H" json:"increase1H" `
-	Increase24H    float64 `form:"increase24H" json:"increase24H" `
-	Volume24H      float64 `form:"volume24H"  json:"volume24H" `
-	TokenMarketCap float64 `form:"topTokenMarketCap" json:"topTokenMarketCap"`
+	TokenName      string  `json:"tokenName" `
+	Price          string  `json:"price" `
+	Increase1H     float64 `json:"increase1H" `
+	Increase24H    float64 `json:"increase24H" `
+	Volume24H      float64 `json:"volume24H" `
+	TokenMarketCap float64 `json:"topTokenMarketCap"`
 	MeMooScore     string  `json:"meMooScore" `
 }
 
 type TopTokensRespDto struct {
 	TokenImageUrl  string  `json:"tokenImageUrl" `
-	TokenName      string  `form:"tokenName"  json:"tokenName" `
-	Price          string  `form:"price" json:"price" `
-	Increase1H     float64 `form:"increase1H" json:"increase1H" `
-	Increase24H    float64 `form:"increase24H" json:"increase24H" `
-	Volume24H      float64 `form:"volume24H"  json:"volume24H" `
-	TokenMarketCap float64 `form:"topTokenMarketCap" json:"topTokenMarketCap"`
+	TokenName      string  `json:"tokenName" `
+	Price          string  `json:"price" `
+	Increase1H     float64 `json:"increase1H" `
+	Increase24H    float64 `json:"increase24H" `
+	Volume24H      float64 `json:"volume24H" `
+	TokenMarketCap float64 `json:"topTokenMarketCap"`
 	MeMooScore     string  `json:"meMooScore" `
 }
 

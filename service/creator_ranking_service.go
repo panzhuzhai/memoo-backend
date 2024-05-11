@@ -8,24 +8,24 @@ import (
 /*******************response dto start*******************************************/
 type TrendingCreatorsRespDto struct {
 	UserProfileImageUrl       string  `json:"userProfileImageUrl"`
-	CreatorsName              string  `form:"creatorsName"  json:"creatorsName" `
-	CreatorsAddress           string  `form:"creatorsAddress" json:"creatorsAddress" `
-	TokensCreatedNum          int64   `form:"tokensCreatedNum" json:"tokensCreatedNum" `
-	AccumulativeMarketCap     float64 `form:"accumulativeMarketCap" json:"accumulativeMarketCap" `
-	AccumulativeATHMarketCap  float64 `form:"accumulativeATHMarketCap"  json:"accumulativeATHMarketCap" `
-	AccumulativeHolders       int64   `form:"accumulativeHolders" json:"accumulativeHolders" `
-	AccumulativeHoldersGrowth int64   `form:"accumulativeHoldersGrowth" json:"accumulativeHoldersGrowth" `
-	TopTokenMarketCap         float64 `form:"topTokenMarketCap" json:"topTokenMarketCap"`
+	CreatorsName              string  `json:"creatorsName" `
+	CreatorsAddress           string  `json:"creatorsAddress" `
+	TokensCreatedNum          int64   `json:"tokensCreatedNum" `
+	AccumulativeMarketCap     float64 `json:"accumulativeMarketCap" `
+	AccumulativeATHMarketCap  float64 `json:"accumulativeATHMarketCap" `
+	AccumulativeHolders       int64   `json:"accumulativeHolders" `
+	AccumulativeHoldersGrowth int64   `json:"accumulativeHoldersGrowth" `
+	TopTokenMarketCap         float64 `json:"topTokenMarketCap"`
 }
 
 type TopCreatorsRespDto struct {
 	UserProfileImageUrl      string  `json:"userProfileImageUrl"`
-	CreatorsName             string  `form:"creatorsName"  json:"creatorsName" `
-	TokensCreatedNum         int64   `form:"tokensCreatedNum" json:"tokensCreatedNum" `
-	AccumulativeMarketCap    float64 `form:"accumulativeMarketCap" json:"accumulativeMarketCap" `
-	AccumulativeATHMarketCap float64 `form:"accumulativeATHMarketCap"  json:"accumulativeATHMarketCap" `
-	AccumulativeHolders      int64   `form:"accumulativeHolders" json:"accumulativeHolders" `
-	TopTokenMarketCap        float64 `form:"topTokenMarketCap" json:"topTokenMarketCap"`
+	CreatorsName             string  `json:"creatorsName" `
+	TokensCreatedNum         int64   `json:"tokensCreatedNum" `
+	AccumulativeMarketCap    float64 `json:"accumulativeMarketCap" `
+	AccumulativeATHMarketCap float64 `json:"accumulativeATHMarketCap" `
+	AccumulativeHolders      int64   `json:"accumulativeHolders" `
+	TopTokenMarketCap        float64 `json:"topTokenMarketCap"`
 }
 
 /*******************response dto end*******************************************/

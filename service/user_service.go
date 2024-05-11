@@ -10,10 +10,10 @@ import (
 
 /*******************request dto start*******************************************/
 type UserCreateOrUpdateDto struct {
-	UserName   string `form:"userName"  json:"userName" `
-	UserBio    string `form:"userBio" json:"userBio" `
-	Twitter    string `form:"twitter" json:"twitter" `
-	WebsiteUrl string `form:"websiteUrl" json:"websiteUrl" `
+	UserName   string `form:"userName"  `
+	UserBio    string `form:"userBio"  `
+	Twitter    string `form:"twitter" `
+	WebsiteUrl string `form:"websiteUrl"  `
 }
 
 /*******************request dto end*******************************************/
@@ -26,14 +26,14 @@ type ProjectSocialDto struct {
 
 type UserViewOthersRespDto struct {
 	TokenImageUrl            string             `json:"tokenImageUrl" `
-	TokensCreatedNum         int64              `form:"tokensCreatedNum" json:"tokensCreatedNum" `
-	AccumulativeMarketCap    float64            `form:"accumulativeMarketCap" json:"accumulativeMarketCap" `
-	AccumulativeATHMarketCap float64            `form:"accumulativeATHMarketCap"  json:"accumulativeATHMarketCap" `
-	TopTokenMarketCap        float64            `form:"accumulativeMarketCap" json:"accumulativeMarketCap" `
-	TopTokenATHMarketCap     float64            `form:"accumulativeATHMarketCap"  json:"accumulativeATHMarketCap" `
-	TopTokenHolders          int64              `form:"accumulativeHolders" json:"accumulativeHolders" `
-	TopTokenHoldersGrowth    int64              `form:"accumulativeHoldersGrowth" json:"accumulativeHoldersGrowth" `
-	TokenName                string             `form:"tokenName" json:"tokenName" `
+	TokensCreatedNum         int64              `json:"tokensCreatedNum" `
+	AccumulativeMarketCap    float64            `json:"accumulativeMarketCap" `
+	AccumulativeATHMarketCap float64            `json:"accumulativeATHMarketCap" `
+	TopTokenMarketCap        float64            `json:"accumulativeMarketCap" `
+	TopTokenATHMarketCap     float64            `json:"accumulativeATHMarketCap" `
+	TopTokenHolders          int64              `json:"accumulativeHolders" `
+	TopTokenHoldersGrowth    int64              `json:"accumulativeHoldersGrowth" `
+	TokenName                string             `json:"tokenName" `
 	Description              string             `json:"description"`
 	CreatorAddress           string             `json:"creatorAddress"`
 	CreatorSocialsAccount    string             `json:"creatorAddress"`

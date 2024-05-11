@@ -10,16 +10,16 @@ import (
 
 /*******************request dto start*******************************************/
 type OtherLinksDto struct {
-	OtherLinkUrl     string `json:"otherLinkUrl"`
-	OtherLinkUrlType string `json:"otherLinkUrlType" default:"other"`
+	OtherLinkUrl     string `form:"otherLinkUrl" `
+	OtherLinkUrlType string `form:"otherLinkUrlType" default:"other"`
 }
 
 type ProjectCreateOrUpdateDto struct {
-	Ticker      string          `json:"ticker"`
-	ProjectName string          `json:"projectName"`
-	Description string          `json:"description" `
-	Twitter     string          `form:"twitter" json:"twitter" `
-	OtherLinks  []OtherLinksDto `form:"otherLinks" json:"otherLinks" `
+	Ticker      string          `form:"ticker"`
+	ProjectName string          `form:"projectName"`
+	Description string          `form:"description" `
+	Twitter     string          `form:"twitter"  `
+	OtherLinks  []OtherLinksDto `form:"otherLinks"  `
 }
 
 /*******************request dto end*******************************************/
@@ -80,3 +80,5 @@ func HandleProjectNewOrEdit(dbTx *gorm.DB, param *ProjectCreateOrUpdateDto, addr
 	}
 	return param, nil
 }
+
+/*******************service end*******************************************/

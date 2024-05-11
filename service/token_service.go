@@ -35,7 +35,7 @@ type TokenCreateOrUpdateDto struct {
 /*******************response dto start*******************************************/
 type TokenListRespDto struct {
 	TokenImageUrl string `json:"tokenImageUrl" `
-	TokenName     string `form:"tokenName"  json:"tokenName" `
+	TokenName     string `json:"tokenName" `
 	TotalRaised   string `json:"totalRaised"`
 	LaunchDate    int64  `json:"launchDate" `
 	MeMooScore    string `json:"meMooScore" `
