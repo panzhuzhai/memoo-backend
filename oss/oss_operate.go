@@ -10,6 +10,7 @@ import (
 	"memoo-backend/config"
 	"mime/multipart"
 	"os"
+	"time"
 )
 
 var AWScon *s3.S3
@@ -46,7 +47,7 @@ func UploadFile(file *multipart.FileHeader) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	url, err := UploadToS3(AWScon, "your-s3-bucket", filePath, file.Filename)
+	url, err := UploadToS3(filePath, file.Filename)
 	if err != nil {
 		return "", err
 	}
@@ -75,7 +76,7 @@ func SaveFile(file *multipart.FileHeader, filePath string) error {
 	return nil
 }
 
-func UploadToS3(s3Client *s3.S3, bucketName, filePath, fileName string) (string, error) {
+func UploadToS3(filePath, fileName string) (string, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return "", err
@@ -85,26 +86,26 @@ func UploadToS3(s3Client *s3.S3, bucketName, filePath, fileName string) (string,
 	key := fileName
 
 	params := &s3.PutObjectInput{
-		Bucket: aws.String(bucketName),
-		Key:    aws.String(key),
-		Body:   file,
+		Bucket:      aws.String(config.AppConfig.AwsAttribute.AwsBucketName),
+		Key:         aws.String(key),
+		Body:        file,
+		ContentType: aws.String("image/jpeg"),
 	}
 
-	_, err = s3Client.PutObject(params)
+	_, err = AWScon.PutObject(params)
 	if err != nil {
 		return "", err
 	}
-	url := getS3ObjectURL(AWScon, bucketName, key)
-	return url, nil
+	return fileName, nil
 }
 
-func getS3ObjectURL(s3Client *s3.S3, bucketName, objectKey string) string {
-	req, _ := s3Client.GetObjectRequest(&s3.GetObjectInput{
-		Bucket: aws.String(bucketName),
+func GetS3ObjectURL(objectKey string, timeOut time.Duration) string {
+	req, _ := AWScon.GetObjectRequest(&s3.GetObjectInput{
+		Bucket: aws.String(config.AppConfig.AwsAttribute.AwsBucketName),
 		Key:    aws.String(objectKey),
 	})
 
-	url, err := req.Presign(0)
+	url, err := req.Presign(timeOut)
 	if err != nil {
 		fmt.Println("Failed to generate pre-signed URL:", err)
 		return ""
