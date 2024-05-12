@@ -1,7 +1,6 @@
 package api
 
 import (
-	"errors"
 	"github.com/gin-gonic/gin"
 	"memoo-backend/dto"
 	"memoo-backend/serializer"
@@ -19,11 +18,11 @@ func TrendingCreators(c *gin.Context) {
 	var param dto.PageDto
 	err := c.BindQuery(&param)
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		serializer.WriteData2Front(c, nil, err, "args is err")
 		return
 	}
 	paginator, err := service.TrendingCreators(param)
-	serializer.WriteData2Front(c, paginator, err)
+	serializer.WriteData2Front(c, paginator, err, "")
 }
 
 // @Summary web-unauthorized top-creators
@@ -37,9 +36,9 @@ func TopCreators(c *gin.Context) {
 	var param dto.PageDto
 	err := c.BindQuery(&param)
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		serializer.WriteData2Front(c, nil, err, "args is err")
 		return
 	}
 	paginator, err := service.TopCreators(param)
-	serializer.WriteData2Front(c, paginator, err)
+	serializer.WriteData2Front(c, paginator, err, "")
 }

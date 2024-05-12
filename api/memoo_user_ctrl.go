@@ -1,7 +1,6 @@
 package api
 
 import (
-	"errors"
 	"github.com/gin-gonic/gin"
 	"memoo-backend/dto"
 	"memoo-backend/middleware/jwt"
@@ -19,7 +18,7 @@ import (
 func UserViewOthers(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	resp, err := service.UserViewOthers(address)
-	serializer.WriteData2Front(c, resp, err)
+	serializer.WriteData2Front(c, resp, err, "")
 }
 
 // @Summary web-web-oriented user-view-others-list
@@ -34,11 +33,11 @@ func UserViewOthersList(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	err := c.BindQuery(&param)
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		serializer.WriteData2Front(c, nil, err, "args is err")
 		return
 	}
 	paginator, err := service.UserViewOthersList(param, address)
-	serializer.WriteData2Front(c, paginator, err)
+	serializer.WriteData2Front(c, paginator, err, "")
 }
 
 // @Summary special game
@@ -53,28 +52,27 @@ func UserNewOrEdit(c *gin.Context) {
 	// 解析表单数据
 	err := c.Request.ParseMultipartForm(32 << 20) // 限制上传文件大小为32MB
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("Failed to parse form data"))
+		serializer.WriteData2Front(c, nil, err, "Failed to parse form data")
 		return
 	}
-
 	form := c.Request.MultipartForm
 	bannerUrls, err := oss.BatchUploadFile(form.File["profileBanner"])
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("Failed to UploadFile"))
+		serializer.WriteData2Front(c, nil, err, "Failed to parse form data")
 		return
 	}
 	profileImages, err := oss.BatchUploadFile(form.File["profileImage"])
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("Failed to UploadFile"))
+		serializer.WriteData2Front(c, nil, err, "Failed to parse form data")
 		return
 	}
 
 	// 绑定JSON数据
 	var param *service.UserCreateOrUpdateDto
 	if err := c.ShouldBind(&param); err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		serializer.WriteData2Front(c, nil, err, "args is err")
 		return
 	}
-	resData, err := service.UserNewOrEdit(param, address, profileImages, bannerUrls)
-	serializer.WriteData2Front(c, resData, err)
+	resData, err := service.UserNewOrEdit(param, address, bannerUrls, profileImages)
+	serializer.WriteData2Front(c, resData, err, "")
 }

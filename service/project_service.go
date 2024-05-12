@@ -11,15 +11,16 @@ import (
 /*******************request dto start*******************************************/
 type OtherLinksDto struct {
 	OtherLinkUrl     string `form:"otherLinkUrl" `
-	OtherLinkUrlType string `form:"otherLinkUrlType" default:"other"`
+	OtherLinkUrlType string `form:"otherLinkUrlType"`
 }
 
 type ProjectCreateOrUpdateDto struct {
-	Ticker      string          `form:"ticker"`
-	ProjectName string          `form:"projectName"`
-	Description string          `form:"description" `
-	Twitter     string          `form:"twitter"  `
-	OtherLinks  []OtherLinksDto `form:"otherLinks"  `
+	Ticker       string          `form:"ticker"`
+	ProjectName  string          `form:"projectName"`
+	Description  string          `form:"description" `
+	Twitter      string          `form:"twitter"  `
+	OtherLinkStr string          `form:"otherLinkStr"  `
+	OtherLinks   []OtherLinksDto `form:"otherLinks"  `
 }
 
 /*******************request dto end*******************************************/

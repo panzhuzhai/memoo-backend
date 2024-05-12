@@ -5,15 +5,21 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/cloudfront/sign"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"io"
+	"github.com/google/uuid"
+	"log"
 	"memoo-backend/config"
 	"mime/multipart"
 	"os"
+	"path/filepath"
+	"strings"
 	"time"
 )
 
 var AWScon *s3.S3
+var sess *session.Session
+var imageExts []string
 
 func InitAws() error {
 	sess, err := session.NewSession(&aws.Config{
@@ -26,60 +32,60 @@ func InitAws() error {
 	}
 
 	AWScon = s3.New(sess)
+	imageExts = []string{".png", ".jpg", ".jpeg", ".gif", ".bmp", ".svg"}
 	return nil
 }
 
 func BatchUploadFile(files []*multipart.FileHeader) ([]string, error) {
 	urls := make([]string, 0)
-	for _, bannerFile := range files {
-		fileUrl, err := UploadFile(bannerFile)
+	for _, file := range files {
+		bucketFileKey := (uuid.New()).String()
+		fileOpen, err := file.Open()
+		defer fileOpen.Close()
+		err = DirectUploadToS3(bucketFileKey, fileOpen, file.Filename)
 		if err != nil {
 			return nil, err
 		}
-		urls = append(urls, fileUrl)
+		urls = append(urls, bucketFileKey)
 	}
 	return urls, nil
 }
 
-func UploadFile(file *multipart.FileHeader) (string, error) {
-	filePath := "./uploads/" + file.Filename
-	err := SaveFile(file, filePath)
-	if err != nil {
-		return "", err
+func isImage(fileExt string) bool {
+	for _, ext := range imageExts {
+		if fileExt == ext {
+			return true
+		}
 	}
-	url, err := UploadToS3(filePath, file.Filename)
-	if err != nil {
-		return "", err
-	}
-
-	return url, nil
+	return false
 }
 
-func SaveFile(file *multipart.FileHeader, filePath string) error {
-	src, err := file.Open()
-	if err != nil {
-		return err
-	}
-	defer src.Close()
-
-	dst, err := os.Create(filePath)
-	if err != nil {
-		return err
-	}
-	defer dst.Close()
-
-	_, err = io.Copy(dst, src)
-	if err != nil {
-		return err
-	}
-
-	return nil
+func DirectUploadToS3(bucketFileKey string, file multipart.File, srcFileName string) error {
+	_, err := AWScon.PutObject(BuildPutObjectInput(bucketFileKey, file, srcFileName))
+	return err
 }
 
-func UploadToS3(filePath, fileName string) (string, error) {
+func BuildPutObjectInput(bucketFileKey string, file multipart.File, srcFileName string) *s3.PutObjectInput {
+	ext := strings.ToLower(filepath.Ext(srcFileName))
+	if isImage(ext) {
+		return &s3.PutObjectInput{
+			Bucket:      aws.String(config.AppConfig.AwsAttribute.AwsBucketName),
+			Key:         aws.String(bucketFileKey),
+			Body:        file,
+			ContentType: aws.String("image/jpeg"),
+		}
+	}
+	return &s3.PutObjectInput{
+		Bucket: aws.String(config.AppConfig.AwsAttribute.AwsBucketName),
+		Key:    aws.String(bucketFileKey),
+		Body:   file,
+	}
+}
+
+func UploadToS3(filePath, fileName string) error {
 	file, err := os.Open(filePath)
 	if err != nil {
-		return "", err
+		return err
 	}
 	defer file.Close()
 
@@ -94,22 +100,32 @@ func UploadToS3(filePath, fileName string) (string, error) {
 
 	_, err = AWScon.PutObject(params)
 	if err != nil {
-		return "", err
+		return err
 	}
-	return fileName, nil
+	return nil
 }
 
-func GetS3ObjectURL(objectKey string, timeOut time.Duration) string {
+func GetS3ObjectURL(objectKey string) string {
 	req, _ := AWScon.GetObjectRequest(&s3.GetObjectInput{
 		Bucket: aws.String(config.AppConfig.AwsAttribute.AwsBucketName),
 		Key:    aws.String(objectKey),
 	})
-
-	url, err := req.Presign(timeOut)
+	url, err := req.Presign(time.Duration(config.AppConfig.AwsAttribute.AwsExpirationTime) * time.Hour)
 	if err != nil {
 		fmt.Println("Failed to generate pre-signed URL:", err)
 		return ""
 	}
-
 	return url
+}
+
+func GetCdnURL(objectKey string, timeOut time.Duration) string {
+	signer := sign.NewURLSigner("", nil)
+	url := GetS3ObjectURL(objectKey)
+	expirationTime := time.Now().Add(24 * time.Hour)
+	signedURL, err := signer.Sign(url, expirationTime)
+	if err != nil {
+		log.Println(err)
+	}
+
+	return signedURL
 }

@@ -25,6 +25,7 @@ type Config struct {
 		AwsAccessKeyId     string `yaml:"aws_access_key_id" envconfig:"AWS_ACCESS_KEY_ID" default:""`
 		AwsSecretAccessKey string `yaml:"aws_secret_access_key" envconfig:"AWS_SECRET_ACCESS_KEY" default:""`
 		AwsBucketName      string `yaml:"aws_bucket_name" envconfig:"AWS_BUCKET_NAME" default:""`
+		AwsExpirationTime  int64  `yaml:"aws_expiration_time" envconfig:"AWS_EXPIRATION_TIME" default:"168"`
 	}
 	Extension struct {
 		MasterGenerator bool   `yaml:"master_generator" default:"false"`

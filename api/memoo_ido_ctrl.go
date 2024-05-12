@@ -1,7 +1,6 @@
 package api
 
 import (
-	"errors"
 	"github.com/gin-gonic/gin"
 	"memoo-backend/dto"
 	"memoo-backend/middleware/jwt"
@@ -21,11 +20,11 @@ func IdoUpcoming(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	err := c.BindQuery(&param)
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		serializer.WriteData2Front(c, nil, err, "args is err")
 		return
 	}
 	paginator, err := service.IdoUpcoming(param, address)
-	serializer.WriteData2Front(c, paginator, err)
+	serializer.WriteData2Front(c, paginator, err, "")
 }
 
 // @Summary web-oriented ido-active
@@ -40,11 +39,11 @@ func IdoActive(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	err := c.BindQuery(&param)
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		serializer.WriteData2Front(c, nil, err, "args is err")
 		return
 	}
 	paginator, err := service.IdoActive(param, address)
-	serializer.WriteData2Front(c, paginator, err)
+	serializer.WriteData2Front(c, paginator, err, "")
 }
 
 // @Summary web-oriented ido-completed
@@ -59,11 +58,11 @@ func IdoCompleted(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	err := c.BindQuery(&param)
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		serializer.WriteData2Front(c, nil, err, "args is err")
 		return
 	}
 	paginator, err := service.IdoCompleted(param, address)
-	serializer.WriteData2Front(c, paginator, err)
+	serializer.WriteData2Front(c, paginator, err, "")
 }
 
 // @Summary web-oriented ido-upcoming-detail
@@ -75,7 +74,7 @@ func IdoCompleted(c *gin.Context) {
 func IdoUpcomingDetail(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	resp, err := service.IdoUpcomingDetail(address)
-	serializer.WriteData2Front(c, resp, err)
+	serializer.WriteData2Front(c, resp, err, "")
 }
 
 // @Summary web-oriented ido-active-detail
@@ -87,7 +86,7 @@ func IdoUpcomingDetail(c *gin.Context) {
 func IdoActiveDetail(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	resp, err := service.IdoActiveDetail(address)
-	serializer.WriteData2Front(c, resp, err)
+	serializer.WriteData2Front(c, resp, err, "")
 }
 
 // @Summary web-oriented ido-launched-detail
@@ -99,7 +98,7 @@ func IdoActiveDetail(c *gin.Context) {
 func IdoLaunchedDetail(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	resp, err := service.IdoLaunchedDetail(address)
-	serializer.WriteData2Front(c, resp, err)
+	serializer.WriteData2Front(c, resp, err, "")
 }
 
 // @Summary web-oriented ido-completed
@@ -112,5 +111,5 @@ func IdoLaunchedDetailTop10List(c *gin.Context) {
 	address := jwt.GetAddress(c)
 	param := dto.PageDto{PageNumber: 1, PageSize: 10}
 	paginator, err := service.IdoLaunchedDetailTop10List(param, address)
-	serializer.WriteData2Front(c, paginator, err)
+	serializer.WriteData2Front(c, paginator, err, "")
 }

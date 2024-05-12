@@ -23,10 +23,10 @@ type TokenListReqDto struct {
 }
 
 type TokenCreateOrUpdateDto struct {
-	TokenName         string `json:"tokenName"`
-	ContractAddress   string `json:"contractAddress"`
-	LPContractAddress string `json:"lpContractAddress"`
-	TokenDescription  string `json:"tokenDescription" `
+	TokenName         string `form:"tokenName"`
+	ContractAddress   string `form:"contractAddress"`
+	LPContractAddress string `form:"lPContractAddress"`
+	TokenDescription  string `form:"tokenDescription" `
 	ProjectCreateOrUpdateDto
 }
 
@@ -46,8 +46,20 @@ type TokenListRespDto struct {
 
 /*******************service start*******************************************/
 
-func TokenList(param TokenListReqDto, address string) (database.Paginator, error) {
-	return database.Paginator{}, nil
+func TokenList(param TokenListReqDto, address string) (*database.Paginator, error) {
+	db := database.DB.Table("memoo_tokens")
+	if param.status != "" && len(param.status) != 0 {
+		db = db.Where("status=?", param.status)
+	}
+	db = db.Order("id asc")
+	var records []TokenListRespDto
+	paginator := database.Paging(&database.Param{
+		DB:      db,
+		Page:    int(param.PageNumber),
+		Limit:   param.PageSize,
+		ShowSQL: true,
+	}, &records)
+	return paginator, nil
 }
 
 func TokenNewOrEdit(param *TokenCreateOrUpdateDto, address string, tokenIconUrls []string, bannerUrls []string) (*TokenCreateOrUpdateDto, error) {

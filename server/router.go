@@ -92,7 +92,7 @@ func NewRouter() *gin.Engine {
 		//project
 		webOrientedGroup.POST("project", api.ProjectNewOrEdit)
 
-		//coin
+		//token
 		webOrientedGroup.POST("token", api.TokenNewOrEdit)
 		webOrientedGroup.GET("token", api.TokenList)
 

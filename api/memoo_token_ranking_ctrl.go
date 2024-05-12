@@ -1,7 +1,6 @@
 package api
 
 import (
-	"errors"
 	"github.com/gin-gonic/gin"
 	"memoo-backend/dto"
 	"memoo-backend/serializer"
@@ -19,11 +18,11 @@ func TrendingTokens(c *gin.Context) {
 	var param dto.PageDto
 	err := c.BindQuery(&param)
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		serializer.WriteData2Front(c, nil, err, "args is err")
 		return
 	}
 	paginator, err := service.TrendingTokens(param)
-	serializer.WriteData2Front(c, paginator, err)
+	serializer.WriteData2Front(c, paginator, err, "")
 }
 
 // @Summary web-unauthorized top-tokens
@@ -37,9 +36,9 @@ func TopTokens(c *gin.Context) {
 	var param dto.PageDto
 	err := c.BindQuery(&param)
 	if err != nil {
-		serializer.WriteData2Front(c, nil, errors.New("args is err"))
+		serializer.WriteData2Front(c, nil, err, "args is err")
 		return
 	}
 	paginator, err := service.TopTokens(param)
-	serializer.WriteData2Front(c, paginator, err)
+	serializer.WriteData2Front(c, paginator, err, "")
 }

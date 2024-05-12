@@ -1,7 +1,6 @@
 package serializer
 
 import (
-	"errors"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -57,9 +56,9 @@ func FailWithData(errCode int, data interface{}, msg string) Response {
 	}
 }
 
-func WriteData2Front(c *gin.Context, resData interface{}, err error) {
+func WriteData2Front(c *gin.Context, resData interface{}, err error, defineMsg string) {
 	if err != nil {
-		WrapErrReturn(c, err.Error(), err)
+		WrapErrReturn(c, defineMsg, err)
 		return
 	}
 	c.JSON(http.StatusOK, Success(resData))
@@ -78,10 +77,12 @@ func SuccessNotWithData() ResponseNotWithData {
 	}
 }
 
-func WrapErrReturn(c *gin.Context, logMsg string, err error) {
-	if err == nil {
-		err = errors.New(logMsg)
+func WrapErrReturn(c *gin.Context, defineMsg string, err error) {
+	if err != nil {
+		log.Println(err.Error(), err)
+		if defineMsg == "" {
+			defineMsg = err.Error()
+		}
 	}
-	log.Println(logMsg, err)
-	c.JSON(200, Fail(http.StatusInternalServerError, logMsg))
+	c.JSON(200, Fail(http.StatusInternalServerError, defineMsg))
 }

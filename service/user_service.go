@@ -5,6 +5,7 @@ import (
 	"memoo-backend/dto"
 	"memoo-backend/middleware/database"
 	"memoo-backend/model"
+	"memoo-backend/oss"
 	"time"
 )
 
@@ -25,7 +26,7 @@ type ProjectSocialDto struct {
 }
 
 type UserViewOthersRespDto struct {
-	TokenImageUrl            string             `json:"tokenImageUrl" `
+	ImageUrl                 string             `json:"imageUrl" `
 	TokensCreatedNum         int64              `json:"tokensCreatedNum" `
 	AccumulativeMarketCap    float64            `json:"accumulativeMarketCap" `
 	AccumulativeATHMarketCap float64            `json:"accumulativeATHMarketCap" `
@@ -43,13 +44,13 @@ type UserViewOthersRespDto struct {
 }
 
 type UserViewOthersListRespDto struct {
-	TokenImageUrl string `json:"tokenImageUrl" `
-	TokenName     string `json:"tokenName"`
-	Status        string `json:"status"`
-	TotalRaised   string `json:"totalRaised"`
-	LaunchDate    int64  `json:"launchDate" `
-	MeMooScore    string `json:"meMooScore" `
-	Emotion       string `json:"emotion" ` //WIF、FOMO、LEASH
+	ImageUrl    string `json:"imageUrl" `
+	TokenName   string `json:"tokenName"`
+	Status      string `json:"status"`
+	TotalRaised string `json:"totalRaised"`
+	LaunchDate  int64  `json:"launchDate" `
+	MeMooScore  string `json:"meMooScore" `
+	Emotion     string `json:"emotion" ` //WIF、FOMO、LEASH
 }
 
 /*******************response dto end*******************************************/
@@ -59,8 +60,22 @@ func UserViewOthers(address string) (UserViewOthersRespDto, error) {
 	return UserViewOthersRespDto{}, nil
 }
 
-func UserViewOthersList(param dto.PageDto, address string) (database.Paginator, error) {
-	return database.Paginator{}, nil
+func UserViewOthersList(param dto.PageDto, address string) (*database.Paginator, error) {
+	db := database.DB.Table("memoo_tokens").Order("id asc")
+	var records []UserViewOthersListRespDto
+	paginator := database.Paging(&database.Param{
+		DB:      db,
+		Page:    int(param.PageNumber),
+		Limit:   param.PageSize,
+		ShowSQL: true,
+	}, &records)
+	recordNews := make([]UserViewOthersListRespDto, 0)
+	for _, item := range records {
+		item.ImageUrl = oss.GetS3ObjectURL(item.ImageUrl)
+		recordNews = append(recordNews, item)
+	}
+	paginator.Records = recordNews
+	return paginator, nil
 }
 
 func UserNewOrEdit(param *UserCreateOrUpdateDto, address string, bannerUrls []string, profileImageUrls []string) (*UserCreateOrUpdateDto, error) {
