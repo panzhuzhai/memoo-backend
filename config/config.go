@@ -27,6 +27,9 @@ type Config struct {
 		AwsBucketName      string `yaml:"aws_bucket_name" envconfig:"AWS_BUCKET_NAME" default:""`
 		AwsExpirationTime  int64  `yaml:"aws_expiration_time" envconfig:"AWS_EXPIRATION_TIME" default:"168"`
 	}
+	TestAttribute struct {
+		TestApiHost string `yaml:"test_api_host" envconfig:"TEST_API_HOST" default:""`
+	}
 	Extension struct {
 		MasterGenerator bool   `yaml:"master_generator" default:"false"`
 		CorsEnabled     bool   `yaml:"cors_enabled" default:"false"`

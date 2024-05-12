@@ -50,7 +50,7 @@ func TokenNewOrEdit(c *gin.Context) {
 		return
 	}
 
-	bannerUrls, err := oss.BatchUploadFile(form.File["profileBanner"])
+	bannerUrls, err := oss.BatchUploadFile(form.File["banner"])
 	if err != nil {
 		serializer.WriteData2Front(c, nil, err, "Failed to UploadFile")
 		return
