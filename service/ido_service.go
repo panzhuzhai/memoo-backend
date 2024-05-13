@@ -3,12 +3,13 @@ package service
 import (
 	"memoo-backend/dto"
 	"memoo-backend/middleware/database"
+	"memoo-backend/serializer"
 	"time"
 )
 
 /*******************respnose dto start*******************************************/
 
-type IdoActiveRespDto struct {
+type IdoActiveDto struct {
 	TokenImageUrl string `json:"tokenImageUrl" `
 	TokenName     string `json:"tokenName"`
 	EndsIn        int64  `json:"endsIn"`
@@ -17,7 +18,7 @@ type IdoActiveRespDto struct {
 	Status        string `json:"status"`
 }
 
-type IdoCompletedRespDto struct {
+type IdoCompletedDto struct {
 	TokenImageUrl string `json:"tokenImageUrl" `
 	TokenName     string `json:"tokenName"`
 	Ticker        string `json:"ticker"`
@@ -26,7 +27,7 @@ type IdoCompletedRespDto struct {
 	TotalRaised   string `json:"totalRaised"`
 }
 
-type IdoUpcomingRespDto struct {
+type IdoUpcomingDto struct {
 	TokenImageUrl string `json:"tokenImageUrl" `
 	TokenName     string `json:"tokenName"`
 	IdoDate       int64  `json:"idoDate"`
@@ -69,7 +70,7 @@ type TokenInfoDto struct {
 	CreatedAt         time.Time `json:"createdAt" `
 }
 
-type IdoUpcomingDetailRespDto struct {
+type IdoUpcomingDetailDto struct {
 	MeMooScore string `json:"meMooScore" `
 	EndsIn     int64  `json:"endsIn"`
 	IdoDate    int64  `json:"idoDate"`
@@ -80,7 +81,7 @@ type IdoUpcomingDetailRespDto struct {
 	SocialInfoDto
 }
 
-type IdoActiveDetailRespDto struct {
+type IdoActiveDetailDto struct {
 	MeMooScore  string `json:"meMooScore" `
 	EndsIn      int64  `json:"endsIn"`
 	Price       string `json:"price" `
@@ -107,7 +108,7 @@ type IdoDateDto struct {
 	AllTimeLow  string  `json:"allTimeLow" `
 	Holders     int64   `json:"holders"`
 }
-type IdoLaunchedDetailRespDto struct {
+type IdoLaunchedDetailDto struct {
 	MeMooScore  string `json:"meMooScore" `
 	EndsIn      int64  `json:"endsIn"`
 	MarketCap   string `json:"marketCap" `
@@ -128,6 +129,61 @@ type IdoLaunchedDetailTop10ListDto struct {
 
 /*******************respnose dto end*******************************************/
 
+/*******************swagger use response start*******************************************/
+type IdoActivePaginator struct {
+	database.PaginatorBase
+	Records []IdoActiveDto `json:"records"`
+}
+type IdoActiveResp struct {
+	serializer.ResponseNotWithData
+	Data IdoActivePaginator `json:"data,omitempty"`
+}
+
+type IdoCompletedPaginator struct {
+	database.PaginatorBase
+	Records []IdoCompletedDto `json:"records"`
+}
+
+type IdoCompletedResp struct {
+	serializer.ResponseNotWithData
+	Data IdoCompletedPaginator `json:"data,omitempty"`
+}
+
+type IdoUpcomingPaginator struct {
+	database.PaginatorBase
+	Records []IdoUpcomingDto `json:"records"`
+}
+
+type IdoUpcomingResp struct {
+	serializer.ResponseNotWithData
+	Data IdoUpcomingPaginator `json:"data,omitempty"`
+}
+
+type IdoLaunchedDetailTop10ListPaginator struct {
+	database.PaginatorBase
+	Records []IdoLaunchedDetailTop10ListDto `json:"records"`
+}
+
+type IdoLaunchedDetailTop10ListResp struct {
+	serializer.ResponseNotWithData
+	Data IdoLaunchedDetailTop10ListPaginator `json:"data,omitempty"`
+}
+
+type IdoUpcomingDetailResp struct {
+	serializer.ResponseNotWithData
+	Data IdoUpcomingDetailDto `json:"data,omitempty"`
+}
+type IdoActiveDetailResp struct {
+	serializer.ResponseNotWithData
+	Data IdoActiveDetailDto `json:"data,omitempty"`
+}
+type IdoLaunchedDetailResp struct {
+	serializer.ResponseNotWithData
+	Data IdoLaunchedDetailDto `json:"data,omitempty"`
+}
+
+/*******************swagger use response end*******************************************/
+
 /*******************service start*******************************************/
 func IdoActive(param dto.PageDto, address string) (database.Paginator, error) {
 	return database.Paginator{}, nil
@@ -140,16 +196,16 @@ func IdoCompleted(param dto.PageDto, address string) (database.Paginator, error)
 func IdoUpcoming(param dto.PageDto, address string) (database.Paginator, error) {
 	return database.Paginator{}, nil
 }
-func IdoUpcomingDetail(address string) (IdoUpcomingDetailRespDto, error) {
-	return IdoUpcomingDetailRespDto{}, nil
+func IdoUpcomingDetail(address string) (IdoUpcomingDetailDto, error) {
+	return IdoUpcomingDetailDto{}, nil
 }
 
-func IdoActiveDetail(address string) (IdoActiveDetailRespDto, error) {
-	return IdoActiveDetailRespDto{}, nil
+func IdoActiveDetail(address string) (IdoActiveDetailDto, error) {
+	return IdoActiveDetailDto{}, nil
 }
 
-func IdoLaunchedDetail(address string) (IdoLaunchedDetailRespDto, error) {
-	return IdoLaunchedDetailRespDto{}, nil
+func IdoLaunchedDetail(address string) (IdoLaunchedDetailDto, error) {
+	return IdoLaunchedDetailDto{}, nil
 }
 
 func IdoLaunchedDetailTop10List(param dto.PageDto, address string) (database.Paginator, error) {

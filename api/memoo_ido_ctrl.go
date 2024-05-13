@@ -13,7 +13,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param  request body  dto.PageDto  true "IdoUpcoming parameters"
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.IdoUpcomingResp
 // @Router /api/v1/web-oriented/ido-upcoming [get]
 func IdoUpcoming(c *gin.Context) {
 	var param dto.PageDto
@@ -32,7 +32,7 @@ func IdoUpcoming(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param  request body  dto.PageDto  true "IdoActive parameters"
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.IdoActiveResp
 // @Router /api/v1/web-oriented/ido-active [get]
 func IdoActive(c *gin.Context) {
 	var param dto.PageDto
@@ -51,7 +51,7 @@ func IdoActive(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param  request body  dto.PageDto  true "IdoCompleted parameters"
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.IdoCompletedResp
 // @Router /api/v1/web-oriented/ido-completed [get]
 func IdoCompleted(c *gin.Context) {
 	var param dto.PageDto
@@ -69,7 +69,7 @@ func IdoCompleted(c *gin.Context) {
 // @Description  ido
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.IdoUpcomingDetailResp
 // @Router /api/v1/web-oriented/ido-upcoming-detail [get]
 func IdoUpcomingDetail(c *gin.Context) {
 	address := jwt.GetAddress(c)
@@ -81,7 +81,7 @@ func IdoUpcomingDetail(c *gin.Context) {
 // @Description  ido
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.IdoActiveDetailResp
 // @Router /api/v1/web-oriented/ido-active-detail [get]
 func IdoActiveDetail(c *gin.Context) {
 	address := jwt.GetAddress(c)
@@ -93,7 +93,7 @@ func IdoActiveDetail(c *gin.Context) {
 // @Description  ido
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.IdoLaunchedDetailResp
 // @Router /api/v1/web-oriented/ido-launched-detail [get]
 func IdoLaunchedDetail(c *gin.Context) {
 	address := jwt.GetAddress(c)
@@ -105,7 +105,7 @@ func IdoLaunchedDetail(c *gin.Context) {
 // @Description  ido
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.IdoLaunchedDetailTop10ListResp
 // @Router /api/v1/web-oriented/ido-launched-detail-top10 [get]
 func IdoLaunchedDetailTop10List(c *gin.Context) {
 	address := jwt.GetAddress(c)

@@ -3,10 +3,11 @@ package service
 import (
 	"memoo-backend/dto"
 	"memoo-backend/middleware/database"
+	"memoo-backend/serializer"
 )
 
 /*******************response dto start*******************************************/
-type TrendingCreatorsRespDto struct {
+type TrendingCreatorsDto struct {
 	UserProfileImageUrl       string  `json:"userProfileImageUrl"`
 	CreatorsName              string  `json:"creatorsName" `
 	CreatorsAddress           string  `json:"creatorsAddress" `
@@ -18,7 +19,7 @@ type TrendingCreatorsRespDto struct {
 	TopTokenMarketCap         float64 `json:"topTokenMarketCap"`
 }
 
-type TopCreatorsRespDto struct {
+type TopCreatorsDto struct {
 	UserProfileImageUrl      string  `json:"userProfileImageUrl"`
 	CreatorsName             string  `json:"creatorsName" `
 	TokensCreatedNum         int64   `json:"tokensCreatedNum" `
@@ -29,6 +30,29 @@ type TopCreatorsRespDto struct {
 }
 
 /*******************response dto end*******************************************/
+/*******************response swagger dto start*******************************************/
+
+type TrendingCreatorsPaginator struct {
+	database.PaginatorBase
+	Records []TrendingCreatorsDto `json:"records"`
+}
+
+type TrendingCreatorsResp struct {
+	serializer.ResponseNotWithData
+	Data TrendingCreatorsPaginator `json:"data,omitempty"`
+}
+
+type TopCreatorsPaginator struct {
+	database.PaginatorBase
+	Records []TopCreatorsDto `json:"records"`
+}
+
+type TopCreatorsResp struct {
+	serializer.ResponseNotWithData
+	Data TopCreatorsPaginator `json:"data,omitempty"`
+}
+
+/*******************response swagger dto end*******************************************/
 
 /*******************service start*******************************************/
 func TrendingCreators(param dto.PageDto) (database.Paginator, error) {

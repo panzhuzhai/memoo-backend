@@ -40,7 +40,47 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
+                            "$ref": "#/definitions/jwt.LoginResponseDto"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/logout": {
+            "post": {
+                "description": "Refresh by wallet",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Refresh token",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
                             "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/refresh-token": {
+            "post": {
+                "description": "Refresh by wallet",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Refresh token",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/jwt.LoginResponseDto"
                         }
                     }
                 }
@@ -71,7 +111,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.IdoActiveResp"
                         }
                     }
                 }
@@ -91,7 +131,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.IdoActiveDetailResp"
                         }
                     }
                 }
@@ -122,7 +162,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.IdoCompletedResp"
                         }
                     }
                 }
@@ -142,7 +182,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.IdoLaunchedDetailResp"
                         }
                     }
                 }
@@ -162,7 +202,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.IdoLaunchedDetailTop10ListResp"
                         }
                     }
                 }
@@ -193,7 +233,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.IdoUpcomingResp"
                         }
                     }
                 }
@@ -213,7 +253,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.IdoUpcomingDetailResp"
                         }
                     }
                 }
@@ -275,7 +315,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.TokenListResp"
                         }
                     }
                 }
@@ -355,7 +395,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.UserViewOthersResp"
                         }
                     }
                 }
@@ -386,7 +426,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.TopCreatorsResp"
                         }
                     }
                 }
@@ -417,7 +457,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.TopTokensResp"
                         }
                     }
                 }
@@ -448,7 +488,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.TrendingCreatorsResp"
                         }
                     }
                 }
@@ -479,7 +519,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.TrendingTokensResp"
                         }
                     }
                 }
@@ -494,7 +534,7 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "web-web-oriented user-view-others-list",
+                "summary": "web-web-oriented user-view-others",
                 "parameters": [
                     {
                         "description": "UserViewOthersList parameters",
@@ -510,7 +550,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/serializer.Response"
+                            "$ref": "#/definitions/service.UserViewOthersListResp"
                         }
                     }
                 }
@@ -559,6 +599,28 @@ const docTemplate = `{
                 }
             }
         },
+        "jwt.LoginResponseDto": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "expire": {
+                            "type": "integer"
+                        },
+                        "token": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
         "serializer.Response": {
             "type": "object",
             "properties": {
@@ -571,6 +633,610 @@ const docTemplate = `{
                 }
             }
         },
+        "service.IdoActiveDetailDto": {
+            "type": "object",
+            "properties": {
+                "commitment": {
+                    "type": "string"
+                },
+                "communityActivit": {
+                    "type": "string"
+                },
+                "communitySize": {
+                    "type": "string"
+                },
+                "contractAddress": {
+                    "type": "string"
+                },
+                "contributed": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "creatorActivity": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endsIn": {
+                    "type": "integer"
+                },
+                "fdv": {
+                    "type": "integer"
+                },
+                "holders": {
+                    "type": "string"
+                },
+                "idoDate": {
+                    "type": "integer"
+                },
+                "liquidity": {
+                    "type": "string"
+                },
+                "lpContractAddress": {
+                    "type": "string"
+                },
+                "marketCap": {
+                    "type": "string"
+                },
+                "maxSupply": {
+                    "type": "integer"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "projectCreator": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.ProjectCreatorDto"
+                    }
+                },
+                "projectSocial": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.ProjectSocialDto"
+                    }
+                },
+                "projectWebsite": {
+                    "type": "string"
+                },
+                "socialInfo": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "tokenImageUrl": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "totalRaised": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoActiveDetailResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.IdoActiveDetailDto"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoActiveDto": {
+            "type": "object",
+            "properties": {
+                "endsIn": {
+                    "type": "integer"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "tokenImageUrl": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "totalRaised": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoActivePaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.IdoActiveDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.IdoActiveResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.IdoActivePaginator"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoCompletedDto": {
+            "type": "object",
+            "properties": {
+                "athRoi": {
+                    "type": "string"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "tokenImageUrl": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "totalRaised": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoCompletedPaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.IdoCompletedDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.IdoCompletedResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.IdoCompletedPaginator"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoLaunchedDetailDto": {
+            "type": "object",
+            "properties": {
+                "allTimeHigh": {
+                    "type": "string"
+                },
+                "allTimeLow": {
+                    "type": "string"
+                },
+                "commitment": {
+                    "type": "string"
+                },
+                "communityActivit": {
+                    "type": "string"
+                },
+                "communitySize": {
+                    "type": "string"
+                },
+                "contractAddress": {
+                    "type": "string"
+                },
+                "contributed": {
+                    "type": "string"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "creatorActivity": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endsIn": {
+                    "type": "integer"
+                },
+                "fdv": {
+                    "type": "integer"
+                },
+                "holders": {
+                    "type": "string"
+                },
+                "idoDate": {
+                    "type": "integer"
+                },
+                "increase1H": {
+                    "type": "number"
+                },
+                "increase24H": {
+                    "type": "number"
+                },
+                "liquidity": {
+                    "type": "string"
+                },
+                "lpContractAddress": {
+                    "type": "string"
+                },
+                "lpLock": {
+                    "type": "boolean"
+                },
+                "marketCap": {
+                    "type": "string"
+                },
+                "maxSupply": {
+                    "type": "integer"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "projectCreator": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.ProjectCreatorDto"
+                    }
+                },
+                "projectSocial": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.ProjectSocialDto"
+                    }
+                },
+                "projectWebsite": {
+                    "type": "string"
+                },
+                "socialInfo": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "tokenImageUrl": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "totalRaised": {
+                    "type": "string"
+                },
+                "volume24H": {
+                    "type": "number"
+                }
+            }
+        },
+        "service.IdoLaunchedDetailResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.IdoLaunchedDetailDto"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoLaunchedDetailTop10ListDto": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "proportion": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoLaunchedDetailTop10ListPaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.IdoLaunchedDetailTop10ListDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.IdoLaunchedDetailTop10ListResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.IdoLaunchedDetailTop10ListPaginator"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoUpcomingDetailDto": {
+            "type": "object",
+            "properties": {
+                "commitment": {
+                    "type": "string"
+                },
+                "communityActivit": {
+                    "type": "string"
+                },
+                "communitySize": {
+                    "type": "string"
+                },
+                "contractAddress": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "creatorActivity": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "endsIn": {
+                    "type": "integer"
+                },
+                "fdv": {
+                    "type": "integer"
+                },
+                "holders": {
+                    "type": "string"
+                },
+                "idoDate": {
+                    "type": "integer"
+                },
+                "liquidity": {
+                    "type": "string"
+                },
+                "lpContractAddress": {
+                    "type": "string"
+                },
+                "marketCap": {
+                    "type": "string"
+                },
+                "maxSupply": {
+                    "type": "integer"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "projectCreator": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.ProjectCreatorDto"
+                    }
+                },
+                "projectSocial": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.ProjectSocialDto"
+                    }
+                },
+                "projectWebsite": {
+                    "type": "string"
+                },
+                "socialInfo": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "tokenImageUrl": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "totalRaised": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoUpcomingDetailResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.IdoUpcomingDetailDto"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoUpcomingDto": {
+            "type": "object",
+            "properties": {
+                "idoDate": {
+                    "type": "integer"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "tokenImageUrl": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "totalRaised": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.IdoUpcomingPaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.IdoUpcomingDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.IdoUpcomingResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.IdoUpcomingPaginator"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
         "service.OtherLinksDto": {
             "type": "object",
             "properties": {
@@ -578,8 +1244,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "otherLinkUrlType": {
-                    "type": "string",
-                    "default": "other"
+                    "type": "string"
                 }
             }
         },
@@ -587,6 +1252,9 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "description": {
+                    "type": "string"
+                },
+                "otherLinkStr": {
                     "type": "string"
                 },
                 "otherLinks": {
@@ -606,6 +1274,31 @@ const docTemplate = `{
                 }
             }
         },
+        "service.ProjectCreatorDto": {
+            "type": "object",
+            "properties": {
+                "creatorAddress": {
+                    "type": "string"
+                },
+                "twitter": {
+                    "type": "string"
+                },
+                "userName": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.ProjectSocialDto": {
+            "type": "object",
+            "properties": {
+                "socialType": {
+                    "type": "string"
+                },
+                "socialUrl": {
+                    "type": "string"
+                }
+            }
+        },
         "service.TokenCreateOrUpdateDto": {
             "type": "object",
             "properties": {
@@ -615,7 +1308,10 @@ const docTemplate = `{
                 "description": {
                     "type": "string"
                 },
-                "lpContractAddress": {
+                "lPContractAddress": {
+                    "type": "string"
+                },
+                "otherLinkStr": {
                     "type": "string"
                 },
                 "otherLinks": {
@@ -641,6 +1337,65 @@ const docTemplate = `{
                 }
             }
         },
+        "service.TokenListDto": {
+            "type": "object",
+            "properties": {
+                "launchDate": {
+                    "type": "integer"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "tokenImageUrl": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "totalRaised": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TokenListPaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.TokenListDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
         "service.TokenListReqDto": {
             "type": "object",
             "properties": {
@@ -649,6 +1404,336 @@ const docTemplate = `{
                 },
                 "pageSize": {
                     "type": "integer"
+                }
+            }
+        },
+        "service.TokenListResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.TokenListPaginator"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TopCreatorsDto": {
+            "type": "object",
+            "properties": {
+                "accumulativeATHMarketCap": {
+                    "type": "number"
+                },
+                "accumulativeHolders": {
+                    "type": "integer"
+                },
+                "accumulativeMarketCap": {
+                    "type": "number"
+                },
+                "creatorsName": {
+                    "type": "string"
+                },
+                "tokensCreatedNum": {
+                    "type": "integer"
+                },
+                "topTokenMarketCap": {
+                    "type": "number"
+                },
+                "userProfileImageUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TopCreatorsPaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.TopCreatorsDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.TopCreatorsResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.TopCreatorsPaginator"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TopTokensDto": {
+            "type": "object",
+            "properties": {
+                "increase1H": {
+                    "type": "number"
+                },
+                "increase24H": {
+                    "type": "number"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "tokenImageUrl": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "topTokenMarketCap": {
+                    "type": "number"
+                },
+                "volume24H": {
+                    "type": "number"
+                }
+            }
+        },
+        "service.TopTokensPaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.TopTokensDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.TopTokensResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.TopTokensPaginator"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TrendingCreatorsDto": {
+            "type": "object",
+            "properties": {
+                "accumulativeATHMarketCap": {
+                    "type": "number"
+                },
+                "accumulativeHolders": {
+                    "type": "integer"
+                },
+                "accumulativeHoldersGrowth": {
+                    "type": "integer"
+                },
+                "accumulativeMarketCap": {
+                    "type": "number"
+                },
+                "creatorsAddress": {
+                    "type": "string"
+                },
+                "creatorsName": {
+                    "type": "string"
+                },
+                "tokensCreatedNum": {
+                    "type": "integer"
+                },
+                "topTokenMarketCap": {
+                    "type": "number"
+                },
+                "userProfileImageUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TrendingCreatorsPaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.TrendingCreatorsDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.TrendingCreatorsResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.TrendingCreatorsPaginator"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TrendingTokensDto": {
+            "type": "object",
+            "properties": {
+                "increase1H": {
+                    "type": "number"
+                },
+                "increase24H": {
+                    "type": "number"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "tokenImageUrl": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "topTokenMarketCap": {
+                    "type": "number"
+                },
+                "volume24H": {
+                    "type": "number"
+                }
+            }
+        },
+        "service.TrendingTokensPaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.TrendingTokensDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.TrendingTokensResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.TrendingTokensPaginator"
+                },
+                "msg": {
+                    "type": "string"
                 }
             }
         },
@@ -665,6 +1750,141 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "websiteUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.UserViewOthersDto": {
+            "type": "object",
+            "properties": {
+                "CreatorTwitter": {
+                    "type": "string"
+                },
+                "accumulativeATHMarketCap": {
+                    "type": "number"
+                },
+                "accumulativeHolders": {
+                    "type": "integer"
+                },
+                "accumulativeHoldersGrowth": {
+                    "type": "integer"
+                },
+                "accumulativeMarketCap": {
+                    "type": "number"
+                },
+                "creatorAddress": {
+                    "type": "string"
+                },
+                "creatorWebsiteUrl": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "projectSocial": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.ProjectSocialDto"
+                    }
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "tokensCreatedNum": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.UserViewOthersListDto": {
+            "type": "object",
+            "properties": {
+                "emotion": {
+                    "description": "WIF、FOMO、LEASH",
+                    "type": "string"
+                },
+                "imageUrl": {
+                    "type": "string"
+                },
+                "launchDate": {
+                    "type": "integer"
+                },
+                "meMooScore": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "totalRaised": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.UserViewOthersListPaginator": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "next_page": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "description": "使用 oneOf 注解标签指定可能的类型\nswagger:allOf\nswagger:discriminator Type",
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "prev_page": {
+                    "type": "integer"
+                },
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/service.UserViewOthersListDto"
+                    }
+                },
+                "rowStart": {
+                    "type": "integer"
+                },
+                "total_page": {
+                    "type": "integer"
+                },
+                "total_record": {
+                    "type": "integer"
+                }
+            }
+        },
+        "service.UserViewOthersListResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.UserViewOthersListPaginator"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.UserViewOthersResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.UserViewOthersDto"
+                },
+                "msg": {
                     "type": "string"
                 }
             }

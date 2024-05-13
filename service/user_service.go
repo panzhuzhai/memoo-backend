@@ -6,6 +6,7 @@ import (
 	"memoo-backend/middleware/database"
 	"memoo-backend/model"
 	"memoo-backend/oss"
+	"memoo-backend/serializer"
 	"time"
 )
 
@@ -25,7 +26,7 @@ type ProjectSocialDto struct {
 	SocialType string `json:"socialType" `
 }
 
-type UserViewOthersRespDto struct {
+type UserViewOthersDto struct {
 	ImageUrl                 string             `json:"imageUrl" `
 	TokensCreatedNum         int64              `json:"tokensCreatedNum" `
 	AccumulativeMarketCap    float64            `json:"accumulativeMarketCap" `
@@ -43,7 +44,7 @@ type UserViewOthersRespDto struct {
 	ProjectSocial            []ProjectSocialDto `json:"projectSocial"`
 }
 
-type UserViewOthersListRespDto struct {
+type UserViewOthersListDto struct {
 	ImageUrl    string `json:"imageUrl" `
 	TokenName   string `json:"tokenName"`
 	Status      string `json:"status"`
@@ -55,26 +56,43 @@ type UserViewOthersListRespDto struct {
 
 /*******************response dto end*******************************************/
 
+/*******************swagger use response start*******************************************/
+type UserViewOthersResp struct {
+	serializer.ResponseNotWithData
+	Data UserViewOthersDto `json:"data,omitempty"`
+}
+
+type UserViewOthersListPaginator struct {
+	database.PaginatorBase
+	Records []UserViewOthersListDto `json:"records"`
+}
+
+type UserViewOthersListResp struct {
+	serializer.ResponseNotWithData
+	Data UserViewOthersListPaginator `json:"data,omitempty"`
+}
+
+/*******************swagger use response end*******************************************/
+
 /*******************service start*******************************************/
-func UserViewOthers(address string) (UserViewOthersRespDto, error) {
-	return UserViewOthersRespDto{}, nil
+func UserViewOthers(address string) (UserViewOthersDto, error) {
+	return UserViewOthersDto{}, nil
 }
 
 func UserViewOthersList(param dto.PageDto, address string) (*database.Paginator, error) {
 	db := database.DB.Table("memoo_tokens").Order("id asc")
-	var records []UserViewOthersListRespDto
+	var records []UserViewOthersListDto
 	paginator := database.Paging(&database.Param{
 		DB:      db,
 		Page:    int(param.PageNumber),
 		Limit:   param.PageSize,
 		ShowSQL: true,
 	}, &records)
-	recordNews := make([]UserViewOthersListRespDto, 0)
+	recordNews := make([]UserViewOthersListDto, 0)
 	for _, item := range records {
 		item.ImageUrl = oss.GetS3ObjectURL(item.ImageUrl)
 		recordNews = append(recordNews, item)
 	}
-	paginator.Records = recordNews
 	return paginator, nil
 }
 

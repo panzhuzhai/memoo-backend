@@ -5,6 +5,7 @@ import (
 	"memoo-backend/dto"
 	"memoo-backend/middleware/database"
 	"memoo-backend/model"
+	"memoo-backend/serializer"
 	"time"
 )
 
@@ -33,7 +34,7 @@ type TokenCreateOrUpdateDto struct {
 /*******************request dto end*******************************************/
 
 /*******************response dto start*******************************************/
-type TokenListRespDto struct {
+type TokenListDto struct {
 	TokenImageUrl string `json:"tokenImageUrl" `
 	TokenName     string `json:"tokenName" `
 	TotalRaised   string `json:"totalRaised"`
@@ -44,6 +45,19 @@ type TokenListRespDto struct {
 
 /*******************response dto end*******************************************/
 
+/*******************swagger use response start*******************************************/
+type TokenListPaginator struct {
+	database.PaginatorBase
+	Records []TokenListDto `json:"records"`
+}
+
+type TokenListResp struct {
+	serializer.ResponseNotWithData
+	Data TokenListPaginator `json:"data,omitempty"`
+}
+
+/*******************swagger use response end*******************************************/
+
 /*******************service start*******************************************/
 
 func TokenList(param TokenListReqDto, address string) (*database.Paginator, error) {
@@ -52,7 +66,7 @@ func TokenList(param TokenListReqDto, address string) (*database.Paginator, erro
 		db = db.Where("status=?", param.status)
 	}
 	db = db.Order("id asc")
-	var records []TokenListRespDto
+	var records []TokenListDto
 	paginator := database.Paging(&database.Param{
 		DB:      db,
 		Page:    int(param.PageNumber),

@@ -493,6 +493,17 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (MapClaims, error) 
 	return claims, nil
 }
 
+/*************swagger use object start******************/
+type LoginResponseDto struct {
+	serializer.ResponseNotWithData
+	Data struct {
+		Token  string `json:"token"`
+		Expire int64  `json:"expire"`
+	} `json:"data,omitempty"`
+}
+
+/*************swagger use object end******************/
+
 // LoginHandler can be used by clients to get a jwt token.
 // Payload needs to be json in the form of {"username": "USERNAME", "password": "PASSWORD"}.
 // Reply will be of the form {"token": "TOKEN"}.
@@ -501,7 +512,7 @@ func (mw *GinJWTMiddleware) GetClaimsFromJWT(c *gin.Context) (MapClaims, error) 
 // @Accept  json
 // @Produce  json
 // @Param  request body  config.Login  true "login parameters"
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} LoginResponseDto
 // @Router /api/v1/auth/login [post]
 func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 	if mw.Authenticator == nil {
@@ -558,6 +569,12 @@ func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {
 }
 
 // LogoutHandler can be used by clients to remove the jwt cookie (if set)
+// @Summary Refresh token
+// @Description Refresh by wallet
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} serializer.Response
+// @Router /api/v1/auth/logout [post]
 func (mw *GinJWTMiddleware) LogoutHandler(c *gin.Context) {
 	// delete auth cookie
 	if mw.SendCookie {
@@ -593,6 +610,12 @@ func (mw *GinJWTMiddleware) signedString(token *jwt.Token) (string, error) {
 // RefreshHandler can be used to refresh a token. The token still needs to be valid on refresh.
 // Shall be put under an endpoint that is using the GinJWTMiddleware.
 // Reply will be of the form {"token": "TOKEN"}.
+// @Summary Refresh token
+// @Description Refresh by wallet
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} LoginResponseDto
+// @Router /api/v1/auth/refresh-token [post]
 func (mw *GinJWTMiddleware) RefreshHandler(c *gin.Context) {
 	tokenString, expire, err := mw.RefreshToken(c)
 	if err != nil {

@@ -12,7 +12,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param  request body  dto.PageDto  true "TrendingTokens parameters"
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.TrendingTokensResp
 // @Router /api/v1/web-unauthorized/trending-tokens [get]
 func TrendingTokens(c *gin.Context) {
 	var param dto.PageDto
@@ -30,7 +30,7 @@ func TrendingTokens(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param  request body  dto.PageDto  true "TopTokens parameters"
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.TopTokensResp
 // @Router /api/v1/web-unauthorized/top-tokens [get]
 func TopTokens(c *gin.Context) {
 	var param dto.PageDto

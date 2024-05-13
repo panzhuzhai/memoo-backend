@@ -28,6 +28,20 @@ definitions:
       pageSize:
         type: integer
     type: object
+  jwt.LoginResponseDto:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          expire:
+            type: integer
+          token:
+            type: string
+        type: object
+      msg:
+        type: string
+    type: object
   serializer.Response:
     properties:
       code:
@@ -36,17 +50,428 @@ definitions:
       msg:
         type: string
     type: object
+  service.IdoActiveDetailDto:
+    properties:
+      commitment:
+        type: string
+      communityActivit:
+        type: string
+      communitySize:
+        type: string
+      contractAddress:
+        type: string
+      contributed:
+        type: string
+      createdAt:
+        type: string
+      creatorActivity:
+        type: string
+      description:
+        type: string
+      endsIn:
+        type: integer
+      fdv:
+        type: integer
+      holders:
+        type: string
+      idoDate:
+        type: integer
+      liquidity:
+        type: string
+      lpContractAddress:
+        type: string
+      marketCap:
+        type: string
+      maxSupply:
+        type: integer
+      meMooScore:
+        type: string
+      price:
+        type: string
+      projectCreator:
+        items:
+          $ref: '#/definitions/service.ProjectCreatorDto'
+        type: array
+      projectSocial:
+        items:
+          $ref: '#/definitions/service.ProjectSocialDto'
+        type: array
+      projectWebsite:
+        type: string
+      socialInfo:
+        type: string
+      ticker:
+        type: string
+      tokenImageUrl:
+        type: string
+      tokenName:
+        type: string
+      totalRaised:
+        type: string
+    type: object
+  service.IdoActiveDetailResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.IdoActiveDetailDto'
+      msg:
+        type: string
+    type: object
+  service.IdoActiveDto:
+    properties:
+      endsIn:
+        type: integer
+      meMooScore:
+        type: string
+      status:
+        type: string
+      tokenImageUrl:
+        type: string
+      tokenName:
+        type: string
+      totalRaised:
+        type: string
+    type: object
+  service.IdoActivePaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.IdoActiveDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
+  service.IdoActiveResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.IdoActivePaginator'
+      msg:
+        type: string
+    type: object
+  service.IdoCompletedDto:
+    properties:
+      athRoi:
+        type: string
+      meMooScore:
+        type: string
+      ticker:
+        type: string
+      tokenImageUrl:
+        type: string
+      tokenName:
+        type: string
+      totalRaised:
+        type: string
+    type: object
+  service.IdoCompletedPaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.IdoCompletedDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
+  service.IdoCompletedResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.IdoCompletedPaginator'
+      msg:
+        type: string
+    type: object
+  service.IdoLaunchedDetailDto:
+    properties:
+      allTimeHigh:
+        type: string
+      allTimeLow:
+        type: string
+      commitment:
+        type: string
+      communityActivit:
+        type: string
+      communitySize:
+        type: string
+      contractAddress:
+        type: string
+      contributed:
+        type: string
+      count:
+        type: integer
+      createdAt:
+        type: string
+      creatorActivity:
+        type: string
+      description:
+        type: string
+      endsIn:
+        type: integer
+      fdv:
+        type: integer
+      holders:
+        type: string
+      idoDate:
+        type: integer
+      increase1H:
+        type: number
+      increase24H:
+        type: number
+      liquidity:
+        type: string
+      lpContractAddress:
+        type: string
+      lpLock:
+        type: boolean
+      marketCap:
+        type: string
+      maxSupply:
+        type: integer
+      meMooScore:
+        type: string
+      price:
+        type: string
+      projectCreator:
+        items:
+          $ref: '#/definitions/service.ProjectCreatorDto'
+        type: array
+      projectSocial:
+        items:
+          $ref: '#/definitions/service.ProjectSocialDto'
+        type: array
+      projectWebsite:
+        type: string
+      socialInfo:
+        type: string
+      ticker:
+        type: string
+      tokenImageUrl:
+        type: string
+      tokenName:
+        type: string
+      totalRaised:
+        type: string
+      volume24H:
+        type: number
+    type: object
+  service.IdoLaunchedDetailResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.IdoLaunchedDetailDto'
+      msg:
+        type: string
+    type: object
+  service.IdoLaunchedDetailTop10ListDto:
+    properties:
+      address:
+        type: string
+      proportion:
+        type: string
+    type: object
+  service.IdoLaunchedDetailTop10ListPaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.IdoLaunchedDetailTop10ListDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
+  service.IdoLaunchedDetailTop10ListResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.IdoLaunchedDetailTop10ListPaginator'
+      msg:
+        type: string
+    type: object
+  service.IdoUpcomingDetailDto:
+    properties:
+      commitment:
+        type: string
+      communityActivit:
+        type: string
+      communitySize:
+        type: string
+      contractAddress:
+        type: string
+      createdAt:
+        type: string
+      creatorActivity:
+        type: string
+      description:
+        type: string
+      endsIn:
+        type: integer
+      fdv:
+        type: integer
+      holders:
+        type: string
+      idoDate:
+        type: integer
+      liquidity:
+        type: string
+      lpContractAddress:
+        type: string
+      marketCap:
+        type: string
+      maxSupply:
+        type: integer
+      meMooScore:
+        type: string
+      projectCreator:
+        items:
+          $ref: '#/definitions/service.ProjectCreatorDto'
+        type: array
+      projectSocial:
+        items:
+          $ref: '#/definitions/service.ProjectSocialDto'
+        type: array
+      projectWebsite:
+        type: string
+      socialInfo:
+        type: string
+      ticker:
+        type: string
+      tokenImageUrl:
+        type: string
+      tokenName:
+        type: string
+      totalRaised:
+        type: string
+    type: object
+  service.IdoUpcomingDetailResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.IdoUpcomingDetailDto'
+      msg:
+        type: string
+    type: object
+  service.IdoUpcomingDto:
+    properties:
+      idoDate:
+        type: integer
+      meMooScore:
+        type: string
+      status:
+        type: string
+      tokenImageUrl:
+        type: string
+      tokenName:
+        type: string
+      totalRaised:
+        type: string
+    type: object
+  service.IdoUpcomingPaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.IdoUpcomingDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
+  service.IdoUpcomingResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.IdoUpcomingPaginator'
+      msg:
+        type: string
+    type: object
   service.OtherLinksDto:
     properties:
       otherLinkUrl:
         type: string
       otherLinkUrlType:
-        default: other
         type: string
     type: object
   service.ProjectCreateOrUpdateDto:
     properties:
       description:
+        type: string
+      otherLinkStr:
         type: string
       otherLinks:
         items:
@@ -59,13 +484,31 @@ definitions:
       twitter:
         type: string
     type: object
+  service.ProjectCreatorDto:
+    properties:
+      creatorAddress:
+        type: string
+      twitter:
+        type: string
+      userName:
+        type: string
+    type: object
+  service.ProjectSocialDto:
+    properties:
+      socialType:
+        type: string
+      socialUrl:
+        type: string
+    type: object
   service.TokenCreateOrUpdateDto:
     properties:
       contractAddress:
         type: string
       description:
         type: string
-      lpContractAddress:
+      lPContractAddress:
+        type: string
+      otherLinkStr:
         type: string
       otherLinks:
         items:
@@ -82,12 +525,283 @@ definitions:
       twitter:
         type: string
     type: object
+  service.TokenListDto:
+    properties:
+      launchDate:
+        type: integer
+      meMooScore:
+        type: string
+      status:
+        type: string
+      tokenImageUrl:
+        type: string
+      tokenName:
+        type: string
+      totalRaised:
+        type: string
+    type: object
+  service.TokenListPaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.TokenListDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
   service.TokenListReqDto:
     properties:
       pageNumber:
         type: integer
       pageSize:
         type: integer
+    type: object
+  service.TokenListResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.TokenListPaginator'
+      msg:
+        type: string
+    type: object
+  service.TopCreatorsDto:
+    properties:
+      accumulativeATHMarketCap:
+        type: number
+      accumulativeHolders:
+        type: integer
+      accumulativeMarketCap:
+        type: number
+      creatorsName:
+        type: string
+      tokensCreatedNum:
+        type: integer
+      topTokenMarketCap:
+        type: number
+      userProfileImageUrl:
+        type: string
+    type: object
+  service.TopCreatorsPaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.TopCreatorsDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
+  service.TopCreatorsResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.TopCreatorsPaginator'
+      msg:
+        type: string
+    type: object
+  service.TopTokensDto:
+    properties:
+      increase1H:
+        type: number
+      increase24H:
+        type: number
+      meMooScore:
+        type: string
+      price:
+        type: string
+      tokenImageUrl:
+        type: string
+      tokenName:
+        type: string
+      topTokenMarketCap:
+        type: number
+      volume24H:
+        type: number
+    type: object
+  service.TopTokensPaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.TopTokensDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
+  service.TopTokensResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.TopTokensPaginator'
+      msg:
+        type: string
+    type: object
+  service.TrendingCreatorsDto:
+    properties:
+      accumulativeATHMarketCap:
+        type: number
+      accumulativeHolders:
+        type: integer
+      accumulativeHoldersGrowth:
+        type: integer
+      accumulativeMarketCap:
+        type: number
+      creatorsAddress:
+        type: string
+      creatorsName:
+        type: string
+      tokensCreatedNum:
+        type: integer
+      topTokenMarketCap:
+        type: number
+      userProfileImageUrl:
+        type: string
+    type: object
+  service.TrendingCreatorsPaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.TrendingCreatorsDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
+  service.TrendingCreatorsResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.TrendingCreatorsPaginator'
+      msg:
+        type: string
+    type: object
+  service.TrendingTokensDto:
+    properties:
+      increase1H:
+        type: number
+      increase24H:
+        type: number
+      meMooScore:
+        type: string
+      price:
+        type: string
+      tokenImageUrl:
+        type: string
+      tokenName:
+        type: string
+      topTokenMarketCap:
+        type: number
+      volume24H:
+        type: number
+    type: object
+  service.TrendingTokensPaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.TrendingTokensDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
+  service.TrendingTokensResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.TrendingTokensPaginator'
+      msg:
+        type: string
     type: object
   service.UserCreateOrUpdateDto:
     properties:
@@ -98,6 +812,98 @@ definitions:
       userName:
         type: string
       websiteUrl:
+        type: string
+    type: object
+  service.UserViewOthersDto:
+    properties:
+      CreatorTwitter:
+        type: string
+      accumulativeATHMarketCap:
+        type: number
+      accumulativeHolders:
+        type: integer
+      accumulativeHoldersGrowth:
+        type: integer
+      accumulativeMarketCap:
+        type: number
+      creatorAddress:
+        type: string
+      creatorWebsiteUrl:
+        type: string
+      description:
+        type: string
+      imageUrl:
+        type: string
+      projectSocial:
+        items:
+          $ref: '#/definitions/service.ProjectSocialDto'
+        type: array
+      tokenName:
+        type: string
+      tokensCreatedNum:
+        type: integer
+    type: object
+  service.UserViewOthersListDto:
+    properties:
+      emotion:
+        description: WIF、FOMO、LEASH
+        type: string
+      imageUrl:
+        type: string
+      launchDate:
+        type: integer
+      meMooScore:
+        type: string
+      status:
+        type: string
+      tokenName:
+        type: string
+      totalRaised:
+        type: string
+    type: object
+  service.UserViewOthersListPaginator:
+    properties:
+      limit:
+        type: integer
+      next_page:
+        type: integer
+      offset:
+        description: |-
+          使用 oneOf 注解标签指定可能的类型
+          swagger:allOf
+          swagger:discriminator Type
+        type: integer
+      page:
+        type: integer
+      prev_page:
+        type: integer
+      records:
+        items:
+          $ref: '#/definitions/service.UserViewOthersListDto'
+        type: array
+      rowStart:
+        type: integer
+      total_page:
+        type: integer
+      total_record:
+        type: integer
+    type: object
+  service.UserViewOthersListResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.UserViewOthersListPaginator'
+      msg:
+        type: string
+    type: object
+  service.UserViewOthersResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.UserViewOthersDto'
+      msg:
         type: string
     type: object
 info:
@@ -121,8 +927,34 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/jwt.LoginResponseDto'
       summary: login
+  /api/v1/auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: Refresh by wallet
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: Refresh token
+  /api/v1/auth/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: Refresh by wallet
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/jwt.LoginResponseDto'
+      summary: Refresh token
   /api/v1/web-oriented/ido-active:
     get:
       consumes:
@@ -141,7 +973,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.IdoActiveResp'
       summary: web-oriented ido-active
   /api/v1/web-oriented/ido-active-detail:
     get:
@@ -154,7 +986,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.IdoActiveDetailResp'
       summary: web-oriented ido-active-detail
   /api/v1/web-oriented/ido-completed:
     get:
@@ -174,7 +1006,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.IdoCompletedResp'
       summary: web-oriented ido-completed
   /api/v1/web-oriented/ido-launched-detail:
     get:
@@ -187,7 +1019,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.IdoLaunchedDetailResp'
       summary: web-oriented ido-launched-detail
   /api/v1/web-oriented/ido-launched-detail-top10:
     get:
@@ -200,7 +1032,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.IdoLaunchedDetailTop10ListResp'
       summary: web-oriented ido-completed
   /api/v1/web-oriented/ido-upcoming:
     get:
@@ -220,7 +1052,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.IdoUpcomingResp'
       summary: web-oriented ido-upcoming
   /api/v1/web-oriented/ido-upcoming-detail:
     get:
@@ -233,7 +1065,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.IdoUpcomingDetailResp'
       summary: web-oriented ido-upcoming-detail
   /api/v1/web-oriented/project:
     post:
@@ -273,7 +1105,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.TokenListResp'
       summary: web-oriented token
     post:
       consumes:
@@ -325,7 +1157,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.UserViewOthersResp'
       summary: web-web-oriented user-view-others
   /api/v1/web-unauthorized/top-creators:
     get:
@@ -345,7 +1177,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.TopCreatorsResp'
       summary: web-unauthorized top-creators
   /api/v1/web-unauthorized/top-tokens:
     get:
@@ -365,7 +1197,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.TopTokensResp'
       summary: web-unauthorized top-tokens
   /api/v1/web-unauthorized/trending-creators:
     get:
@@ -385,7 +1217,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.TrendingCreatorsResp'
       summary: web-unauthorized trending-creators
   /api/v1/web-unauthorized/trending-tokens:
     get:
@@ -405,7 +1237,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
+            $ref: '#/definitions/service.TrendingTokensResp'
       summary: web-unauthorized trending-tokens
   /api/v1/web-web-oriented/user-view-others-list:
     get:
@@ -425,6 +1257,6 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/serializer.Response'
-      summary: web-web-oriented user-view-others-list
+            $ref: '#/definitions/service.UserViewOthersListResp'
+      summary: web-web-oriented user-view-others
 swagger: "2.0"

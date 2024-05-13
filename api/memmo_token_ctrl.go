@@ -14,7 +14,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param  request body  service.TokenListReqDto  true "TokenList parameters"
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.TokenListResp
 // @Router /api/v1/web-oriented/token [get]
 func TokenList(c *gin.Context) {
 	var param service.TokenListReqDto

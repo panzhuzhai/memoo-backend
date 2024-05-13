@@ -16,19 +16,24 @@ type Param struct {
 }
 
 // Paginator 分页返回
-type Paginator struct {
+type PaginatorBase struct {
 	TotalRecord int64 `json:"total_record"`
 	TotalPage   int   `json:"total_page"`
 	RowStart    int64 `json:"rowStart"`
 	// 使用 oneOf 注解标签指定可能的类型
 	// swagger:allOf
 	// swagger:discriminator Type
-	Records  interface{} `json:"records"`
-	Offset   int         `json:"offset"`
-	Limit    int         `json:"limit"`
-	Page     int         `json:"page"`
-	PrevPage int         `json:"prev_page"`
-	NextPage int         `json:"next_page"`
+	Offset   int `json:"offset"`
+	Limit    int `json:"limit"`
+	Page     int `json:"page"`
+	PrevPage int `json:"prev_page"`
+	NextPage int `json:"next_page"`
+}
+
+// Paginator 分页返回
+type Paginator struct {
+	PaginatorBase
+	Records interface{} `json:"records"`
 }
 
 // Paginator 分页返回

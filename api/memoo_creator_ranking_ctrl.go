@@ -12,7 +12,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param  request body  dto.PageDto  true "TrendingCreators parameters"
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.TrendingCreatorsResp
 // @Router /api/v1/web-unauthorized/trending-creators [get]
 func TrendingCreators(c *gin.Context) {
 	var param dto.PageDto
@@ -30,7 +30,7 @@ func TrendingCreators(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param  request body  dto.PageDto  true "TopCreators  parameters"
-// @Success 200 {object} serializer.Response
+// @Success 200 {object} service.TopCreatorsResp
 // @Router /api/v1/web-unauthorized/top-creators [get]
 func TopCreators(c *gin.Context) {
 	var param dto.PageDto
