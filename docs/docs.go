@@ -558,36 +558,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "localconfig.Login": {
-            "type": "object",
-            "required": [
-                "address",
-                "chain",
-                "message",
-                "signature"
-            ],
-            "properties": {
-                "address": {
-                    "type": "string",
-                    "example": "tb1pk7e88y59xje503pzsknn0z3mgpyvefagf2dlrkvlfxpnugy6shmq7qg7q4"
-                },
-                "chain": {
-                    "type": "string",
-                    "example": "Bitcoin"
-                },
-                "message": {
-                    "type": "string",
-                    "example": "1710501746195"
-                },
-                "publicKey": {
-                    "type": "string"
-                },
-                "signature": {
-                    "type": "string",
-                    "example": "IGSo5ZI0H7xpDizzG/1zAYvljp98GoTGIoVZwMLdYAmkMPBwZyvtbgbE1Vs0SogS3juBko3W9BZ5XpGkJY8JEYc="
-                }
-            }
-        },
         "dto.PageDto": {
             "type": "object",
             "properties": {
@@ -618,6 +588,36 @@ const docTemplate = `{
                 },
                 "msg": {
                     "type": "string"
+                }
+            }
+        },
+        "localconfig.Login": {
+            "type": "object",
+            "required": [
+                "address",
+                "chain",
+                "message",
+                "signature"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "example": "tb1pk7e88y59xje503pzsknn0z3mgpyvefagf2dlrkvlfxpnugy6shmq7qg7q4"
+                },
+                "chain": {
+                    "type": "string",
+                    "example": "Bitcoin"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "1710501746195"
+                },
+                "publicKey": {
+                    "type": "string"
+                },
+                "signature": {
+                    "type": "string",
+                    "example": "IGSo5ZI0H7xpDizzG/1zAYvljp98GoTGIoVZwMLdYAmkMPBwZyvtbgbE1Vs0SogS3juBko3W9BZ5XpGkJY8JEYc="
                 }
             }
         },
@@ -1237,19 +1237,13 @@ const docTemplate = `{
                 }
             }
         },
-        "service.OtherLinksDto": {
-            "type": "object",
-            "properties": {
-                "otherLinkUrl": {
-                    "type": "string"
-                },
-                "otherLinkUrlType": {
-                    "type": "string"
-                }
-            }
-        },
         "service.ProjectCreateOrUpdateDto": {
             "type": "object",
+            "required": [
+                "description",
+                "ticker",
+                "twitter"
+            ],
             "properties": {
                 "description": {
                     "type": "string"
@@ -1257,11 +1251,8 @@ const docTemplate = `{
                 "otherLinkStr": {
                     "type": "string"
                 },
-                "otherLinks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/service.OtherLinksDto"
-                    }
+                "pinnedTwitterLinkStr": {
+                    "type": "string"
                 },
                 "projectName": {
                     "type": "string"
@@ -1301,6 +1292,12 @@ const docTemplate = `{
         },
         "service.TokenCreateOrUpdateDto": {
             "type": "object",
+            "required": [
+                "description",
+                "ticker",
+                "tokenName",
+                "twitter"
+            ],
             "properties": {
                 "contractAddress": {
                     "type": "string"
@@ -1314,11 +1311,15 @@ const docTemplate = `{
                 "otherLinkStr": {
                     "type": "string"
                 },
-                "otherLinks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/service.OtherLinksDto"
-                    }
+                "pinnedTwitterLinkStr": {
+                    "type": "string"
+                },
+                "preLaunchDuration": {
+                    "description": "IMMEDIATE、1DAY、3DAY",
+                    "type": "string"
+                },
+                "preMarketAcquisition": {
+                    "type": "string"
                 },
                 "projectName": {
                     "type": "string"

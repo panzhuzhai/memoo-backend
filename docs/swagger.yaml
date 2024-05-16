@@ -1,26 +1,4 @@
 definitions:
-  config.Login:
-    properties:
-      address:
-        example: tb1pk7e88y59xje503pzsknn0z3mgpyvefagf2dlrkvlfxpnugy6shmq7qg7q4
-        type: string
-      chain:
-        example: Bitcoin
-        type: string
-      message:
-        example: "1710501746195"
-        type: string
-      publicKey:
-        type: string
-      signature:
-        example: IGSo5ZI0H7xpDizzG/1zAYvljp98GoTGIoVZwMLdYAmkMPBwZyvtbgbE1Vs0SogS3juBko3W9BZ5XpGkJY8JEYc=
-        type: string
-    required:
-    - address
-    - chain
-    - message
-    - signature
-    type: object
   dto.PageDto:
     properties:
       pageNumber:
@@ -41,6 +19,28 @@ definitions:
         type: object
       msg:
         type: string
+    type: object
+  localconfig.Login:
+    properties:
+      address:
+        example: tb1pk7e88y59xje503pzsknn0z3mgpyvefagf2dlrkvlfxpnugy6shmq7qg7q4
+        type: string
+      chain:
+        example: Bitcoin
+        type: string
+      message:
+        example: "1710501746195"
+        type: string
+      publicKey:
+        type: string
+      signature:
+        example: IGSo5ZI0H7xpDizzG/1zAYvljp98GoTGIoVZwMLdYAmkMPBwZyvtbgbE1Vs0SogS3juBko3W9BZ5XpGkJY8JEYc=
+        type: string
+    required:
+    - address
+    - chain
+    - message
+    - signature
     type: object
   serializer.Response:
     properties:
@@ -460,29 +460,24 @@ definitions:
       msg:
         type: string
     type: object
-  service.OtherLinksDto:
-    properties:
-      otherLinkUrl:
-        type: string
-      otherLinkUrlType:
-        type: string
-    type: object
   service.ProjectCreateOrUpdateDto:
     properties:
       description:
         type: string
       otherLinkStr:
         type: string
-      otherLinks:
-        items:
-          $ref: '#/definitions/service.OtherLinksDto'
-        type: array
+      pinnedTwitterLinkStr:
+        type: string
       projectName:
         type: string
       ticker:
         type: string
       twitter:
         type: string
+    required:
+    - description
+    - ticker
+    - twitter
     type: object
   service.ProjectCreatorDto:
     properties:
@@ -510,10 +505,13 @@ definitions:
         type: string
       otherLinkStr:
         type: string
-      otherLinks:
-        items:
-          $ref: '#/definitions/service.OtherLinksDto'
-        type: array
+      pinnedTwitterLinkStr:
+        type: string
+      preLaunchDuration:
+        description: IMMEDIATE、1DAY、3DAY
+        type: string
+      preMarketAcquisition:
+        type: string
       projectName:
         type: string
       ticker:
@@ -524,6 +522,11 @@ definitions:
         type: string
       twitter:
         type: string
+    required:
+    - description
+    - ticker
+    - tokenName
+    - twitter
     type: object
   service.TokenListDto:
     properties:
@@ -920,7 +923,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/config.Login'
+          $ref: '#/definitions/localconfig.Login'
       produces:
       - application/json
       responses:
