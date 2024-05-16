@@ -1082,9 +1082,9 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/service.TokenCreateOrUpdateDto'
-      - description: Files to upload
+      - description: File to upload
         in: formData
-        name: tokenIcons
+        name: tokenIcon
         required: true
         type: file
       - description: Files to upload

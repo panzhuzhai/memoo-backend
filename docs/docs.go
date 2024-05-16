@@ -310,8 +310,8 @@ const docTemplate = `{
                     },
                     {
                         "type": "file",
-                        "description": "Files to upload",
-                        "name": "tokenIcons",
+                        "description": "File to upload",
+                        "name": "tokenIcon",
                         "in": "formData",
                         "required": true
                     },

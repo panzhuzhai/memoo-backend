@@ -34,7 +34,7 @@ func TokenList(c *gin.Context) {
 // @Accept multipart/form-data
 // @Produce  json
 // @Param request body service.TokenCreateOrUpdateDto true "Request body"
-// @Param tokenIcons formData file true "Files to upload"
+// @Param tokenIcon formData file true "File to upload"
 // @Param banners formData file true "Files to upload"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/token [post]
