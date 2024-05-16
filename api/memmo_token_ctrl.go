@@ -67,14 +67,11 @@ func handleTokenNewOrEditArgs(c *gin.Context) (*service.TokenCreateOrUpdateDto, 
 		return nil, nil, nil, nil, nil, "args is err", err
 	}
 	otherLinks, err := buildLinks(param.OtherLinkStr)
-	if err := c.ShouldBind(&param); err != nil {
+	if err != nil {
 		return nil, nil, nil, nil, nil, "args is err", err
 	}
 	pinnedTwitterLinks, err := buildLinks(param.PinnedTwitterLinkStr)
-	if err := c.ShouldBind(&param); err != nil {
-		return nil, nil, nil, nil, nil, "args is err", err
-	}
-	if err := c.ShouldBind(&param); err != nil {
+	if err != nil {
 		return nil, nil, nil, nil, nil, "args is err", err
 	}
 	return param, tokenIconUrls, bannerUrls, otherLinks, pinnedTwitterLinks, "", nil

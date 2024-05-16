@@ -31,6 +31,8 @@ type TokenCreateOrUpdateDto struct {
 	PreLaunchDuration    string `form:"preLaunchDuration" ` //IMMEDIATE、1DAY、3DAY
 	PreMarketAcquisition string `form:"preMarketAcquisition" `
 	ProjectCreateOrUpdateDto
+	//tokenIcon tokenIcon files list
+	//banner banner iles list
 }
 
 /*******************request dto end*******************************************/
