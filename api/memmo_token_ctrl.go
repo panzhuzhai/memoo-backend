@@ -6,6 +6,7 @@ import (
 	"memoo-backend/oss"
 	"memoo-backend/serializer"
 	"memoo-backend/service"
+	"mime/multipart"
 )
 
 // @Summary web-oriented token
@@ -27,11 +28,14 @@ func TokenList(c *gin.Context) {
 	serializer.WriteData2Front(c, paginator, err, "")
 }
 
+// UploadFile godoc
 // @Summary web-oriented token
 // @Description  token
-// @Accept  json
+// @Accept multipart/form-data
 // @Produce  json
-// @Param  request body  service.TokenCreateOrUpdateDto  true "TokenNewOrEdit parameters"
+// @Param request body service.TokenCreateOrUpdateDto true "Request body"
+// @Param tokenIcons formData file true "Files to upload"
+// @Param banners formData file true "Files to upload"
 // @Success 200 {object} serializer.Response
 // @Router /api/v1/web-oriented/token [post]
 func TokenNewOrEdit(c *gin.Context) {
@@ -46,26 +50,21 @@ func TokenNewOrEdit(c *gin.Context) {
 }
 
 func handleTokenNewOrEditArgs(c *gin.Context) (*service.TokenCreateOrUpdateDto, []string, []string, []service.LinksDto, []service.LinksDto, string, error) {
-	err := c.Request.ParseMultipartForm(32 << 20) // 限制上传文件大小为32MB
-	if err != nil {
-		return nil, nil, nil, nil, nil, "Failed to parse form data", err
-	}
-
-	form := c.Request.MultipartForm
-	tokenIconUrls, err := oss.BatchUploadFile(form.File["tokenIcon"])
-	if err != nil {
-		return nil, nil, nil, nil, nil, "Failed to UploadFile", err
-	}
-
-	bannerUrls, err := oss.BatchUploadFile(form.File["banner"])
-	if err != nil {
-		return nil, nil, nil, nil, nil, "Failed to UploadFile", err
-	}
-
 	var param *service.TokenCreateOrUpdateDto
-	if err = c.ShouldBind(&param); err != nil {
+	if err := c.ShouldBind(&param); err != nil {
 		return nil, nil, nil, nil, nil, "args is err", err
 	}
+
+	tokenIconUrls, err := oss.BatchUploadFile([]*multipart.FileHeader{param.TokenIcon})
+	if err != nil {
+		return nil, nil, nil, nil, nil, "Failed to UploadFile", err
+	}
+
+	bannerUrls, err := oss.BatchUploadFile(param.Banners)
+	if err != nil {
+		return nil, nil, nil, nil, nil, "Failed to UploadFile", err
+	}
+
 	otherLinks, err := buildLinks(param.OtherLinkStr)
 	if err != nil {
 		return nil, nil, nil, nil, nil, "args is err", err

@@ -460,25 +460,6 @@ definitions:
       msg:
         type: string
     type: object
-  service.ProjectCreateOrUpdateDto:
-    properties:
-      description:
-        type: string
-      otherLinkStr:
-        type: string
-      pinnedTwitterLinkStr:
-        type: string
-      projectName:
-        type: string
-      ticker:
-        type: string
-      twitter:
-        type: string
-    required:
-    - description
-    - ticker
-    - twitter
-    type: object
   service.ProjectCreatorDto:
     properties:
       creatorAddress:
@@ -1070,26 +1051,6 @@ paths:
           schema:
             $ref: '#/definitions/service.IdoUpcomingDetailResp'
       summary: web-oriented ido-upcoming-detail
-  /api/v1/web-oriented/project:
-    post:
-      consumes:
-      - application/json
-      description: project
-      parameters:
-      - description: ProjectNewOrEdit parameters
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/service.ProjectCreateOrUpdateDto'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/serializer.Response'
-      summary: web-oriented project
   /api/v1/web-oriented/token:
     get:
       consumes:
@@ -1112,15 +1073,25 @@ paths:
       summary: web-oriented token
     post:
       consumes:
-      - application/json
+      - multipart/form-data
       description: token
       parameters:
-      - description: TokenNewOrEdit parameters
+      - description: Request body
         in: body
         name: request
         required: true
         schema:
           $ref: '#/definitions/service.TokenCreateOrUpdateDto'
+      - description: Files to upload
+        in: formData
+        name: tokenIcons
+        required: true
+        type: file
+      - description: Files to upload
+        in: formData
+        name: banners
+        required: true
+        type: file
       produces:
       - application/json
       responses:

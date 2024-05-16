@@ -6,6 +6,7 @@ import (
 	"memoo-backend/constants"
 	"memoo-backend/middleware/database"
 	"memoo-backend/model"
+	"mime/multipart"
 	"time"
 )
 
@@ -16,12 +17,13 @@ type LinksDto struct {
 }
 
 type ProjectCreateOrUpdateDto struct {
-	Ticker               string `form:"ticker" binding:"required"`
-	ProjectName          string `form:"projectName"`
-	Description          string `form:"description" binding:"required"`
-	Twitter              string `form:"twitter"  binding:"required"`
-	OtherLinkStr         string `form:"otherLinkStr"  `
-	PinnedTwitterLinkStr string `form:"pinnedTwitterLinkStr"  `
+	Ticker               string                  `form:"ticker" binding:"required"`
+	ProjectName          string                  `form:"projectName"`
+	Description          string                  `form:"description" binding:"required"`
+	Twitter              string                  `form:"twitter"  binding:"required"`
+	OtherLinkStr         string                  `form:"otherLinkStr"  `
+	PinnedTwitterLinkStr string                  `form:"pinnedTwitterLinkStr"  `
+	Banners              []*multipart.FileHeader `form:"banners" swaggerignore:"true"`
 }
 
 /*******************request dto end*******************************************/

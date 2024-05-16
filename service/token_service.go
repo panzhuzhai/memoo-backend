@@ -6,6 +6,7 @@ import (
 	"memoo-backend/middleware/database"
 	"memoo-backend/model"
 	"memoo-backend/serializer"
+	"mime/multipart"
 	"time"
 )
 
@@ -23,16 +24,16 @@ type TokenListReqDto struct {
 	dto.PageDto
 }
 
+// TokenCreateOrUpdateDto represents the request body that includes an array of files.
 type TokenCreateOrUpdateDto struct {
-	TokenName            string `form:"tokenName" binding:"required"`
-	ContractAddress      string `form:"contractAddress"`
-	LPContractAddress    string `form:"lPContractAddress"`
-	TokenDescription     string `form:"tokenDescription" `
-	PreLaunchDuration    string `form:"preLaunchDuration" ` //IMMEDIATE、1DAY、3DAY
-	PreMarketAcquisition string `form:"preMarketAcquisition" `
-	ProjectCreateOrUpdateDto
-	//tokenIcon tokenIcon files list
-	//banner banner iles list
+	TokenName                string                `form:"tokenName" binding:"required"` //
+	ContractAddress          string                `form:"contractAddress"`
+	LPContractAddress        string                `form:"lPContractAddress"`
+	TokenDescription         string                `form:"tokenDescription" `
+	PreLaunchDuration        string                `form:"preLaunchDuration" ` //IMMEDIATE、1DAY、3DAY
+	PreMarketAcquisition     string                `form:"preMarketAcquisition" `
+	TokenIcon                *multipart.FileHeader `form:"tokenIcon" binding:"required" swaggerignore:"true"`
+	ProjectCreateOrUpdateDto                       //tokenIcon tokenIcon files list banner banner iles list
 }
 
 /*******************request dto end*******************************************/

@@ -259,37 +259,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/web-oriented/project": {
-            "post": {
-                "description": "project",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "web-oriented project",
-                "parameters": [
-                    {
-                        "description": "ProjectNewOrEdit parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/service.ProjectCreateOrUpdateDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/serializer.Response"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/web-oriented/token": {
             "get": {
                 "description": "token",
@@ -323,7 +292,7 @@ const docTemplate = `{
             "post": {
                 "description": "token",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
@@ -331,13 +300,27 @@ const docTemplate = `{
                 "summary": "web-oriented token",
                 "parameters": [
                     {
-                        "description": "TokenNewOrEdit parameters",
+                        "description": "Request body",
                         "name": "request",
                         "in": "body",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/service.TokenCreateOrUpdateDto"
                         }
+                    },
+                    {
+                        "type": "file",
+                        "description": "Files to upload",
+                        "name": "tokenIcons",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "Files to upload",
+                        "name": "banners",
+                        "in": "formData",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -1233,34 +1216,6 @@ const docTemplate = `{
                     "$ref": "#/definitions/service.IdoUpcomingPaginator"
                 },
                 "msg": {
-                    "type": "string"
-                }
-            }
-        },
-        "service.ProjectCreateOrUpdateDto": {
-            "type": "object",
-            "required": [
-                "description",
-                "ticker",
-                "twitter"
-            ],
-            "properties": {
-                "description": {
-                    "type": "string"
-                },
-                "otherLinkStr": {
-                    "type": "string"
-                },
-                "pinnedTwitterLinkStr": {
-                    "type": "string"
-                },
-                "projectName": {
-                    "type": "string"
-                },
-                "ticker": {
-                    "type": "string"
-                },
-                "twitter": {
                     "type": "string"
                 }
             }
