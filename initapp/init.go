@@ -2,7 +2,7 @@ package initapp
 
 import (
 	"github.com/gin-gonic/gin"
-	"memoo-backend/config"
+	"memoo-backend/localconfig"
 	"memoo-backend/logger"
 	"memoo-backend/middleware/database"
 	"memoo-backend/oss"
@@ -11,15 +11,15 @@ import (
 func Init() {
 
 	// 读取翻译文件
-	if err := config.LoadLocales("config/locales/zh-cn.yaml"); err != nil {
+	if err := localconfig.LoadLocales("localconfig/locales/zh-cn.yaml"); err != nil {
 		//util.Log().Panic("翻译文件加载失败", err)
 	}
 
-	config.LoadAppConfig()
-	gin.SetMode(config.AppConfig.Extension.GinMode)
+	localconfig.LoadAppConfig()
+	gin.SetMode(localconfig.AppConfig.Extension.GinMode)
 
 	logger.InitLogger(gin.Mode())
-	config.InitBtcNetwork(gin.Mode())
+	localconfig.InitBtcNetwork(gin.Mode())
 
 	database.InitDatabase()
 	oss.InitAws()

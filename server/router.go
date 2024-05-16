@@ -6,8 +6,8 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"memoo-backend/api"
-	"memoo-backend/config"
 	"memoo-backend/docs"
+	"memoo-backend/localconfig"
 	"memoo-backend/middleware"
 	"memoo-backend/middleware/jwt"
 	"memoo-backend/serializer"
@@ -31,7 +31,7 @@ import (
 func NewRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(middleware.Cors())
-	initJwt := config.InitJwt()
+	initJwt := localconfig.InitJwt()
 
 	r.NoRoute(initJwt.MiddlewareFunc(), func(c *gin.Context) {
 		claims := jwt.ExtractClaims(c)

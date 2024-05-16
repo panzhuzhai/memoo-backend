@@ -1,4 +1,4 @@
-package config
+package localconfig
 
 import (
 	"crypto/rsa"
@@ -26,6 +26,12 @@ type Config struct {
 		AwsSecretAccessKey string `yaml:"aws_secret_access_key" envconfig:"AWS_SECRET_ACCESS_KEY" default:""`
 		AwsBucketName      string `yaml:"aws_bucket_name" envconfig:"AWS_BUCKET_NAME" default:""`
 		AwsExpirationTime  int64  `yaml:"aws_expiration_time" envconfig:"AWS_EXPIRATION_TIME" default:"168"`
+	}
+	TwitterAttribute struct {
+		TwitterConsumerKey    string `yaml:"twitter_consumer_key" envconfig:"TWITTER_CONSUMER_KEY" default:"yZFh1hOJMmG9uJqq0dj7rdCyJ"`
+		TwitterConsumerSecret string `yaml:"twitter_consumer_secret" envconfig:"TWITTER_CONSUMER_SECRET" default:"RZCV7GpPL9xCQRfq6RJRHqsGcr4IKQmR3MIK5133mmtlnvXOl3"`
+		TwitterAccessToken    string `yaml:"twitter_access_token" envconfig:"TWITTER_ACCESS_TOKEN" default:"1739989948672208896-C9lLcE8lDQHRpGlzgag15VGiyNVhxH"`
+		TwitterAccessSecret   string `yaml:"twitter_access_secret" envconfig:"TWITTER_ACCESS_SECRET" default:"HcQ9GFBYzY7vs9uAFjzAiLZlgZqGssy88amttVL0lX1vC"`
 	}
 	TestAttribute struct {
 		TestApiHost string `yaml:"test_api_host" envconfig:"TEST_API_HOST" default:""`
@@ -70,7 +76,7 @@ func LoadAppConfig() *Config {
 		log.Fatal("Failed to process environment variables:", err1)
 	}
 
-	//if err := yaml.Unmarshal(file, config); err != nil {
+	//if err := yaml.Unmarshal(file, localconfig); err != nil {
 	//	fmt.Printf("Failed to read application.yml: %s", err)
 	//	os.Exit(constants.ErrExitStatus)
 	//}

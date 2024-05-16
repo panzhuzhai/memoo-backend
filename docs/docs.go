@@ -32,7 +32,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/config.Login"
+                            "$ref": "#/definitions/localconfig.Login"
                         }
                     }
                 ],
@@ -558,7 +558,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "config.Login": {
+        "localconfig.Login": {
             "type": "object",
             "required": [
                 "address",

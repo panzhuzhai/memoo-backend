@@ -5,13 +5,13 @@ const ErrExitStatus int = 2
 
 const (
 	// AppConfigPath is the path of application.yml.
-	AppConfigPath = "resources/config/application.yml"
+	AppConfigPath = "resources/localconfig/application.yml"
 	// MessagesConfigPath is the path of messages.properties.
-	MessagesConfigPath = "resources/config/messages.properties"
+	MessagesConfigPath = "resources/localconfig/messages.properties"
 	// LoggerConfigPath is the path of zaplogger.yml.
-	LoggerConfigPath       = "../resources/config/zaplogger.yml"
-	JwtPrivateKeyPath      = "resources/config/jwt/private_key.pem"
-	JwtPublicKeyPath       = "resources/config/jwt/public_key.pem"
+	LoggerConfigPath       = "../resources/localconfig/zaplogger.yml"
+	JwtPrivateKeyPath      = "resources/localconfig/jwt/private_key.pem"
+	JwtPublicKeyPath       = "resources/localconfig/jwt/public_key.pem"
 	B2GameAssetContractAbi = "resources/abi/B2GameAsset.json"
 	B2NFTAbi               = "resources/abi/B2NFT.json"
 )

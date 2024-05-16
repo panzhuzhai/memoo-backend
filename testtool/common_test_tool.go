@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"memoo-backend/config"
-	"memoo-backend/httpclient"
 	"memoo-backend/initapp"
+	"memoo-backend/localconfig"
+	"memoo-backend/remoteclient"
 	"memoo-backend/serializer"
 	"mime/multipart"
 	"os"
@@ -65,7 +65,7 @@ func assetResult(t *testing.T, uri string, headers map[string]string, bodyByte [
 		headers["Content-Type"] = contentType
 	}
 	response := serializer.Response{}
-	_, err := httpclient.CallRemoteReturnObj(uri, config.AppConfig.TestAttribute.TestApiHost, &response, headers, bodyByte, method)
+	_, err := remoteclient.CallRemoteReturnObj(uri, localconfig.AppConfig.TestAttribute.TestApiHost, &response, headers, bodyByte, method)
 	if err != nil {
 		log.Println(err)
 	}

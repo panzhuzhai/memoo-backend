@@ -4,8 +4,8 @@ import (
 	"go.uber.org/zap"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"memoo-backend/config"
 	"memoo-backend/constants"
+	"memoo-backend/localconfig"
 	"memoo-backend/logger"
 	"os"
 	"time"
@@ -17,7 +17,7 @@ func InitDatabase() {
 	logger.ZapLogger.Infof("Try database connection")
 	gormConfig := &gorm.Config{Logger: logger.GormLogger}
 	//fmt.Println(gormConfig.)
-	db, err := gorm.Open(postgres.Open(config.AppConfig.Database.Dsn), gormConfig)
+	db, err := gorm.Open(postgres.Open(localconfig.AppConfig.Database.Dsn), gormConfig)
 	if err != nil {
 		logger.ZapLogger.Errorf("Failure database connection")
 		os.Exit(constants.ErrExitStatus)

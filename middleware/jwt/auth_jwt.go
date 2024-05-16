@@ -136,7 +136,7 @@ type GinJWTMiddleware struct {
 	// Allow insecure cookies for development over http
 	SecureCookie bool
 
-	// Allow cookies to be accessed client side for development
+	// Allow cookies to be accessed remoteclient side for development
 	CookieHTTPOnly bool
 
 	// Allow cookie domain change for development
@@ -187,7 +187,7 @@ var (
 	ErrEmptyAuthHeader = errors.New("auth header is empty")
 
 	// ErrMissingExpConfig missing exp field in token
-	ErrMissingExpConfig = errors.New("missing exp config")
+	ErrMissingExpConfig = errors.New("missing exp localconfig")
 
 	// ErrMissingExpField missing exp field in token
 	ErrMissingExpField = errors.New("missing exp field")
@@ -511,7 +511,7 @@ type LoginResponseDto struct {
 // @Description login by wallet
 // @Accept  json
 // @Produce  json
-// @Param  request body  config.Login  true "login parameters"
+// @Param  request body  localconfig.Login  true "login parameters"
 // @Success 200 {object} LoginResponseDto
 // @Router /api/v1/auth/login [post]
 func (mw *GinJWTMiddleware) LoginHandler(c *gin.Context) {

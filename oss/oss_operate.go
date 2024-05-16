@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/google/uuid"
 	"log"
-	"memoo-backend/config"
+	"memoo-backend/localconfig"
 	"mime/multipart"
 	"os"
 	"path/filepath"
@@ -23,9 +23,9 @@ var imageExts []string
 
 func InitAws() error {
 	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String(config.AppConfig.AwsAttribute.AwsRegion),
-		Credentials: credentials.NewStaticCredentials(config.AppConfig.AwsAttribute.AwsAccessKeyId,
-			config.AppConfig.AwsAttribute.AwsSecretAccessKey, ""),
+		Region: aws.String(localconfig.AppConfig.AwsAttribute.AwsRegion),
+		Credentials: credentials.NewStaticCredentials(localconfig.AppConfig.AwsAttribute.AwsAccessKeyId,
+			localconfig.AppConfig.AwsAttribute.AwsSecretAccessKey, ""),
 	})
 	if err != nil {
 		return err
@@ -69,14 +69,14 @@ func BuildPutObjectInput(bucketFileKey string, file multipart.File, srcFileName 
 	ext := strings.ToLower(filepath.Ext(srcFileName))
 	if isImage(ext) {
 		return &s3.PutObjectInput{
-			Bucket:      aws.String(config.AppConfig.AwsAttribute.AwsBucketName),
+			Bucket:      aws.String(localconfig.AppConfig.AwsAttribute.AwsBucketName),
 			Key:         aws.String(bucketFileKey),
 			Body:        file,
 			ContentType: aws.String("image/jpeg"),
 		}
 	}
 	return &s3.PutObjectInput{
-		Bucket: aws.String(config.AppConfig.AwsAttribute.AwsBucketName),
+		Bucket: aws.String(localconfig.AppConfig.AwsAttribute.AwsBucketName),
 		Key:    aws.String(bucketFileKey),
 		Body:   file,
 	}
@@ -92,7 +92,7 @@ func UploadToS3(filePath, fileName string) error {
 	key := fileName
 
 	params := &s3.PutObjectInput{
-		Bucket:      aws.String(config.AppConfig.AwsAttribute.AwsBucketName),
+		Bucket:      aws.String(localconfig.AppConfig.AwsAttribute.AwsBucketName),
 		Key:         aws.String(key),
 		Body:        file,
 		ContentType: aws.String("image/jpeg"),
@@ -107,10 +107,10 @@ func UploadToS3(filePath, fileName string) error {
 
 func GetS3ObjectURL(objectKey string) string {
 	req, _ := AWScon.GetObjectRequest(&s3.GetObjectInput{
-		Bucket: aws.String(config.AppConfig.AwsAttribute.AwsBucketName),
+		Bucket: aws.String(localconfig.AppConfig.AwsAttribute.AwsBucketName),
 		Key:    aws.String(objectKey),
 	})
-	url, err := req.Presign(time.Duration(config.AppConfig.AwsAttribute.AwsExpirationTime) * time.Hour)
+	url, err := req.Presign(time.Duration(localconfig.AppConfig.AwsAttribute.AwsExpirationTime) * time.Hour)
 	if err != nil {
 		fmt.Println("Failed to generate pre-signed URL:", err)
 		return ""

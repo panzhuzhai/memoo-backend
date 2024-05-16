@@ -1,4 +1,4 @@
-package config
+package localconfig
 
 import (
 	"github.com/btcsuite/btcd/chaincfg"
