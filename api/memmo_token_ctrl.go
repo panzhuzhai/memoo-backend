@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"memoo-backend/middleware/jwt"
 	"memoo-backend/oss"
@@ -37,40 +36,46 @@ func TokenList(c *gin.Context) {
 // @Router /api/v1/web-oriented/token [post]
 func TokenNewOrEdit(c *gin.Context) {
 	address := jwt.GetAddress(c)
+	param, tokenIconUrls, bannerUrls, otherLinks, pinnedTwitterLinks, errMsg, err := handleTokenNewOrEditArgs(c)
+	if err != nil {
+		serializer.WriteData2Front(c, nil, err, errMsg)
+		return
+	}
+	resData, err := service.TokenNewOrEdit(param, address, tokenIconUrls, bannerUrls, otherLinks, pinnedTwitterLinks)
+	serializer.WriteData2Front(c, resData, err, "")
+}
+
+func handleTokenNewOrEditArgs(c *gin.Context) (*service.TokenCreateOrUpdateDto, []string, []string, []service.LinksDto, []service.LinksDto, string, error) {
 	err := c.Request.ParseMultipartForm(32 << 20) // 限制上传文件大小为32MB
 	if err != nil {
-		serializer.WriteData2Front(c, nil, err, "Failed to parse form data")
-		return
+		return nil, nil, nil, nil, nil, "Failed to parse form data", err
 	}
 
 	form := c.Request.MultipartForm
 	tokenIconUrls, err := oss.BatchUploadFile(form.File["tokenIcon"])
 	if err != nil {
-		serializer.WriteData2Front(c, nil, err, "Failed to UploadFile")
-		return
+		return nil, nil, nil, nil, nil, "Failed to UploadFile", err
 	}
 
 	bannerUrls, err := oss.BatchUploadFile(form.File["banner"])
 	if err != nil {
-		serializer.WriteData2Front(c, nil, err, "Failed to UploadFile")
-		return
+		return nil, nil, nil, nil, nil, "Failed to UploadFile", err
 	}
 
 	var param *service.TokenCreateOrUpdateDto
 	if err = c.ShouldBind(&param); err != nil {
-		serializer.WriteData2Front(c, nil, err, "args is err")
-		return
+		return nil, nil, nil, nil, nil, "args is err", err
 	}
-	otherLinkStr := param.OtherLinkStr
-	var otherLinks []service.OtherLinksDto
-	if otherLinkStr != "" && len(otherLinkStr) != 0 {
-		err = json.Unmarshal([]byte(otherLinkStr), &otherLinks)
-		if err != nil {
-			serializer.WriteData2Front(c, nil, err, "args is err")
-			return
-		}
-		param.OtherLinks = otherLinks
+	otherLinks, err := buildLinks(param.OtherLinkStr)
+	if err := c.ShouldBind(&param); err != nil {
+		return nil, nil, nil, nil, nil, "args is err", err
 	}
-	resData, err := service.TokenNewOrEdit(param, address, tokenIconUrls, bannerUrls)
-	serializer.WriteData2Front(c, resData, err, "")
+	pinnedTwitterLinks, err := buildLinks(param.PinnedTwitterLinkStr)
+	if err := c.ShouldBind(&param); err != nil {
+		return nil, nil, nil, nil, nil, "args is err", err
+	}
+	if err := c.ShouldBind(&param); err != nil {
+		return nil, nil, nil, nil, nil, "args is err", err
+	}
+	return param, tokenIconUrls, bannerUrls, otherLinks, pinnedTwitterLinks, "", nil
 }

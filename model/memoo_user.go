@@ -7,7 +7,7 @@ type MemooUser struct {
 	UserName        string `json:"userName" gorm:"type:varchar(100)"`
 	UserBio         string `json:"userBio" gorm:"type:text;"`
 	Address         string `json:"address" gorm:"type:varchar(100);;uniqueIndex:uidx_user_Address"`
-	Twitter         string `json:"twitter" gorm:"type:varchar(200)"`
-	WebsiteUrl      string `json:"websiteUrl" gorm:"type:varchar(200);"`
-	ProfileImageUrl string `json:"profileImageUrl" gorm:"type:varchar(200);"`
+	Twitter         string `json:"twitter" gorm:"type:varchar(100)"`
+	WebsiteUrl      string `json:"websiteUrl" gorm:"type:varchar(100);"`
+	ProfileImageUrl string `json:"profileImageUrl" gorm:"type:varchar(100);"`
 }

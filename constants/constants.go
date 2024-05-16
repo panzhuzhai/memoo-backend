@@ -51,27 +51,6 @@ const (
 )
 
 const (
-	DataUpdateSucess    = "1"
-	DataNotUpdate       = "2"
-	DbErr               = "3"
-	DataIllegal         = "4"
-	DataIncorrectOwner  = "5"
-	CollectionIncorrect = "6"
-)
-
-const (
-	GAME     = "game"
-	JOB      = "job"
-	CONTRACT = "contract"
-)
-
-const (
-	COLLECTION_LUANCHPAD = "Launchpad"
-	COLLECTION_GAME      = "Game"
-)
-
-const (
-	REGISTERED   = "registered"
-	UNREGISTERED = "unregistered"
-	CAN_CLAIM    = "can_claim"
+	OTHER_LINK          = "OTHER_LINK"
+	PINNED_TWITTER_LINK = "PINNED_TWITTER_LINK"
 )

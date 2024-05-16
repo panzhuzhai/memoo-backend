@@ -24,10 +24,12 @@ type TokenListReqDto struct {
 }
 
 type TokenCreateOrUpdateDto struct {
-	TokenName         string `form:"tokenName"`
-	ContractAddress   string `form:"contractAddress"`
-	LPContractAddress string `form:"lPContractAddress"`
-	TokenDescription  string `form:"tokenDescription" `
+	TokenName            string `form:"tokenName" binding:"required"`
+	ContractAddress      string `form:"contractAddress"`
+	LPContractAddress    string `form:"lPContractAddress"`
+	TokenDescription     string `form:"tokenDescription" `
+	PreLaunchDuration    string `form:"preLaunchDuration" ` //IMMEDIATE、1DAY、3DAY
+	PreMarketAcquisition string `form:"preMarketAcquisition" `
 	ProjectCreateOrUpdateDto
 }
 
@@ -76,7 +78,7 @@ func TokenList(param TokenListReqDto, address string) (*database.Paginator, erro
 	return paginator, nil
 }
 
-func TokenNewOrEdit(param *TokenCreateOrUpdateDto, address string, tokenIconUrls []string, bannerUrls []string) (*TokenCreateOrUpdateDto, error) {
+func TokenNewOrEdit(param *TokenCreateOrUpdateDto, address string, tokenIconUrls []string, bannerUrls []string, otherLinks []LinksDto, pinnedTwitterLinks []LinksDto) (*TokenCreateOrUpdateDto, error) {
 	dbTx := database.DB.Begin()
 	var memooToken model.MemooToken
 	dbTx.Table("memoo_tokens").Where("ticker=?", param.Ticker).First(&memooToken)
@@ -97,8 +99,8 @@ func TokenNewOrEdit(param *TokenCreateOrUpdateDto, address string, tokenIconUrls
 		return nil, tx.Error
 	}
 	paramProject := ProjectCreateOrUpdateDto{Ticker: param.Ticker, ProjectName: param.ProjectName,
-		Description: param.Description, Twitter: param.Twitter, OtherLinks: param.OtherLinks}
-	_, err := HandleProjectNewOrEdit(dbTx, &paramProject, address, bannerUrls)
+		Description: param.Description, Twitter: param.Twitter}
+	_, err := HandleProjectNewOrEdit(dbTx, &paramProject, address, bannerUrls, otherLinks, pinnedTwitterLinks)
 	if err != nil {
 		dbTx.Rollback()
 		return nil, err
