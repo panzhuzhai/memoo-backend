@@ -19,10 +19,11 @@ type LinksDto struct {
 type ProjectCreateOrUpdateDto struct {
 	Ticker               string                  `form:"ticker" binding:"required"`
 	ProjectName          string                  `form:"projectName"`
+	Website              string                  `form:"website"`
 	Description          string                  `form:"description" binding:"required"`
 	Twitter              string                  `form:"twitter"  binding:"required"`
-	OtherLinkStr         string                  `form:"otherLinkStr"  `
-	PinnedTwitterLinkStr string                  `form:"pinnedTwitterLinkStr"  `
+	OtherLinkStr         string                  `form:"otherLinkStr"  `         //[{"linkUrl": "https://twitter.com/W8sFgv45Jt16576","linkUrlType":"twitter"}, {"linkUrl": "https://t.me/layercraftofficialchat","linkUrlType":"telegram"}]
+	PinnedTwitterLinkStr string                  `form:"pinnedTwitterLinkStr"  ` //[{"linkUrl": "https://twitter.com/W8sFgv45Jt16576","linkUrlType":"twitter"}, {"linkUrl": "https://t.me/layercraftofficialchat","linkUrlType":"telegram"}]
 	Banners              []*multipart.FileHeader `form:"banners" swaggerignore:"true"`
 }
 

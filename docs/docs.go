@@ -1249,6 +1249,8 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "description",
+                "preLaunchDuration",
+                "preMarketAcquisition",
                 "ticker",
                 "tokenName",
                 "twitter"
@@ -1264,9 +1266,11 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "otherLinkStr": {
+                    "description": "[{\"linkUrl\": \"https://twitter.com/W8sFgv45Jt16576\",\"linkUrlType\":\"twitter\"}, {\"linkUrl\": \"https://t.me/layercraftofficialchat\",\"linkUrlType\":\"telegram\"}]",
                     "type": "string"
                 },
                 "pinnedTwitterLinkStr": {
+                    "description": "[{\"linkUrl\": \"https://twitter.com/W8sFgv45Jt16576\",\"linkUrlType\":\"twitter\"}, {\"linkUrl\": \"https://t.me/layercraftofficialchat\",\"linkUrlType\":\"telegram\"}]",
                     "type": "string"
                 },
                 "preLaunchDuration": {
@@ -1289,6 +1293,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "twitter": {
+                    "type": "string"
+                },
+                "website": {
                     "type": "string"
                 }
             }

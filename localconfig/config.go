@@ -30,8 +30,8 @@ type Config struct {
 	TwitterAttribute struct {
 		TwitterConsumerKey    string `yaml:"twitter_consumer_key" envconfig:"TWITTER_CONSUMER_KEY" default:"yZFh1hOJMmG9uJqq0dj7rdCyJ"`
 		TwitterConsumerSecret string `yaml:"twitter_consumer_secret" envconfig:"TWITTER_CONSUMER_SECRET" default:"RZCV7GpPL9xCQRfq6RJRHqsGcr4IKQmR3MIK5133mmtlnvXOl3"`
-		TwitterAccessToken    string `yaml:"twitter_access_token" envconfig:"TWITTER_ACCESS_TOKEN" default:"1739989948672208896-C9lLcE8lDQHRpGlzgag15VGiyNVhxH"`
-		TwitterAccessSecret   string `yaml:"twitter_access_secret" envconfig:"TWITTER_ACCESS_SECRET" default:"HcQ9GFBYzY7vs9uAFjzAiLZlgZqGssy88amttVL0lX1vC"`
+		TwitterAccessToken    string `yaml:"twitter_access_token" envconfig:"TWITTER_ACCESS_TOKEN" default:"1739989948672208896-9OG7JSHn33T9uczgbgOkiQUsYEyPVf"`
+		TwitterAccessSecret   string `yaml:"twitter_access_secret" envconfig:"TWITTER_ACCESS_SECRET" default:"4kfDGDHXmgrGtcXXltDumbeY2JNlo7moa5RUzFqZNQy2Z"`
 	}
 	TestAttribute struct {
 		TestApiHost string `yaml:"test_api_host" envconfig:"TEST_API_HOST" default:""`

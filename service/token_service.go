@@ -30,8 +30,8 @@ type TokenCreateOrUpdateDto struct {
 	ContractAddress          string                `form:"contractAddress"`
 	LPContractAddress        string                `form:"lPContractAddress"`
 	TokenDescription         string                `form:"tokenDescription" `
-	PreLaunchDuration        string                `form:"preLaunchDuration" ` //IMMEDIATE、1DAY、3DAY
-	PreMarketAcquisition     string                `form:"preMarketAcquisition" `
+	PreLaunchDuration        string                `form:"preLaunchDuration" binding:"required"` //IMMEDIATE、1DAY、3DAY
+	PreMarketAcquisition     string                `form:"preMarketAcquisition" binding:"required"`
 	TokenIcon                *multipart.FileHeader `form:"tokenIcon" binding:"required" swaggerignore:"true"`
 	ProjectCreateOrUpdateDto                       //tokenIcon tokenIcon files list banner banner iles list
 }
