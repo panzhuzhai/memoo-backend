@@ -14,4 +14,5 @@ type MemooToken struct {
 	PreLaunchDuration    string `json:"preLaunchDuration" gorm:"type:varchar(30);"`
 	PreMarketAcquisition string `json:"preMarketAcquisition" gorm:"type:varchar(30);"`
 	Address              string `json:"address" gorm:"type:varchar(100);"`
+	MaxSupplyQuantity    string `json:"maxSupplyQuantity" gorm:"type:varchar(100);"`
 }
