@@ -278,7 +278,7 @@
                     }
                 }
             },
-            "post": {
+            "put": {
                 "description": "token",
                 "consumes": [
                     "multipart/form-data"
@@ -320,9 +320,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/api/v1/web-oriented/token-confirm": {
+            },
             "post": {
                 "description": "token",
                 "consumes": [
@@ -1321,21 +1319,13 @@
                 "twitter"
             ],
             "properties": {
-                "contractAddress": {
-                    "type": "string"
-                },
                 "description": {
                     "type": "string"
                 },
-                "lPContractAddress": {
+                "introduction": {
                     "type": "string"
                 },
-                "otherLinkStr": {
-                    "description": "[{\"linkUrl\": \"https://twitter.com/W8sFgv45Jt16576\",\"linkUrlType\":\"twitter\"}, {\"linkUrl\": \"https://t.me/layercraftofficialchat\",\"linkUrlType\":\"telegram\"}]",
-                    "type": "string"
-                },
-                "pinnedTwitterLinkStr": {
-                    "description": "[{\"linkUrl\": \"https://twitter.com/W8sFgv45Jt16576\",\"linkUrlType\":\"twitter\"}, {\"linkUrl\": \"https://t.me/layercraftofficialchat\",\"linkUrlType\":\"telegram\"}]",
+                "pinnedTwitter": {
                     "type": "string"
                 },
                 "preLaunchDuration": {
@@ -1346,6 +1336,9 @@
                     "type": "string"
                 },
                 "projectName": {
+                    "type": "string"
+                },
+                "telegram": {
                     "type": "string"
                 },
                 "ticker": {
@@ -1377,6 +1370,9 @@
                 "contractAddress": {
                     "type": "string"
                 },
+                "creatorAddress": {
+                    "type": "string"
+                },
                 "description": {
                     "type": "string"
                 },
@@ -1389,6 +1385,9 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "pinnedTwitter": {
+                    "type": "string"
                 },
                 "pinnedTwitterLinkStr": {
                     "description": "[{\"linkUrl\": \"https://twitter.com/W8sFgv45Jt16576\",\"linkUrlType\":\"twitter\"}, {\"linkUrl\": \"https://t.me/layercraftofficialchat\",\"linkUrlType\":\"telegram\"}]",
@@ -1405,6 +1404,9 @@
                     "type": "string"
                 },
                 "projectName": {
+                    "type": "string"
+                },
+                "telegram": {
                     "type": "string"
                 },
                 "ticker": {

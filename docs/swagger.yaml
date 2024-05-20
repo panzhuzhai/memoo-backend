@@ -478,19 +478,11 @@ definitions:
     type: object
   service.TokenCreateOrUpdateDto:
     properties:
-      contractAddress:
-        type: string
       description:
         type: string
-      lPContractAddress:
+      introduction:
         type: string
-      otherLinkStr:
-        description: '[{"linkUrl": "https://twitter.com/W8sFgv45Jt16576","linkUrlType":"twitter"},
-          {"linkUrl": "https://t.me/layercraftofficialchat","linkUrlType":"telegram"}]'
-        type: string
-      pinnedTwitterLinkStr:
-        description: '[{"linkUrl": "https://twitter.com/W8sFgv45Jt16576","linkUrlType":"twitter"},
-          {"linkUrl": "https://t.me/layercraftofficialchat","linkUrlType":"telegram"}]'
+      pinnedTwitter:
         type: string
       preLaunchDuration:
         description: IMMEDIATE、1DAY、3DAY
@@ -498,6 +490,8 @@ definitions:
       preMarketAcquisition:
         type: string
       projectName:
+        type: string
+      telegram:
         type: string
       ticker:
         type: string
@@ -525,6 +519,8 @@ definitions:
         type: array
       contractAddress:
         type: string
+      creatorAddress:
+        type: string
       description:
         type: string
       lPContractAddress:
@@ -535,6 +531,8 @@ definitions:
         items:
           type: string
         type: array
+      pinnedTwitter:
+        type: string
       pinnedTwitterLinkStr:
         description: '[{"linkUrl": "https://twitter.com/W8sFgv45Jt16576","linkUrlType":"twitter"},
           {"linkUrl": "https://t.me/layercraftofficialchat","linkUrlType":"telegram"}]'
@@ -547,6 +545,8 @@ definitions:
       preMarketAcquisition:
         type: string
       projectName:
+        type: string
+      telegram:
         type: string
       ticker:
         type: string
@@ -1168,8 +1168,7 @@ paths:
           schema:
             $ref: '#/definitions/serializer.Response'
       summary: web-oriented token
-  /api/v1/web-oriented/token-confirm:
-    post:
+    put:
       consumes:
       - multipart/form-data
       description: token
