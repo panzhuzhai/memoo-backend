@@ -11,35 +11,26 @@ import (
 
 func ProjectNewOrEdit(c *gin.Context) {
 	address := jwt.GetAddress(c)
-	param, bannerUrls, otherLinks, pinnedTwitterLinks, errMsg, err := handleProjectNewOrEditArgs(c)
+	param, bannerUrls, errMsg, err := handleProjectNewOrEditArgs(c)
 	if err != nil {
 		serializer.WriteData2Front(c, nil, err, errMsg)
 		return
 	}
-	resData, err := service.ProjectNewOrEdit(param, address, bannerUrls, otherLinks, pinnedTwitterLinks)
+	resData, err := service.ProjectNewOrEdit(param, address, bannerUrls)
 	serializer.WriteData2Front(c, resData, err, "")
 }
 
-func handleProjectNewOrEditArgs(c *gin.Context) (*service.ProjectCreateOrUpdateDto, []string, []service.LinksDto, []service.LinksDto, string, error) {
+func handleProjectNewOrEditArgs(c *gin.Context) (*service.ProjectCreateOrUpdateDto, []string, string, error) {
 	err := c.Request.ParseMultipartForm(32 << 20) // 限制上传文件大小为32MB
 	var param *service.ProjectCreateOrUpdateDto
 	if err := c.ShouldBind(&param); err != nil {
-		return nil, nil, nil, nil, "args is err", err
+		return nil, nil, "args is err", err
 	}
 	bannerUrls, err := oss.BatchUploadFile(param.Banners)
 	if err != nil {
-		return nil, nil, nil, nil, "Failed to UploadFile", err
+		return nil, nil, "Failed to UploadFile", err
 	}
-
-	otherLinks, err := buildLinks(param.OtherLinkStr)
-	if err != nil {
-		return nil, nil, nil, nil, "args is err", err
-	}
-	pinnedTwitterLinks, err := buildLinks(param.PinnedTwitterLinkStr)
-	if err != nil {
-		return nil, nil, nil, nil, "args is err", err
-	}
-	return param, bannerUrls, otherLinks, pinnedTwitterLinks, "", nil
+	return param, bannerUrls, "", nil
 }
 
 func buildLinks(linkStr string) ([]service.LinksDto, error) {

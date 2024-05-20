@@ -59,12 +59,12 @@ func TokenDetail(c *gin.Context) {
 // @Router /api/v1/web-oriented/token [post]
 func TokenNewOrEdit(c *gin.Context) {
 	address := jwt.GetAddress(c)
-	param, tokenIconUrls, bannerUrls, otherLinks, pinnedTwitterLinks, errMsg, err := handleTokenNewOrEditArgs(c)
+	param, tokenIconUrls, bannerUrls, errMsg, err := handleTokenNewOrEditArgs(c)
 	if err != nil {
 		serializer.WriteData2Front(c, nil, err, errMsg)
 		return
 	}
-	resData, err := service.TokenNewOrEdit(param, address, tokenIconUrls, bannerUrls, otherLinks, pinnedTwitterLinks, service.DRAFT)
+	resData, err := service.TokenNewOrEdit(param, address, tokenIconUrls, bannerUrls, service.DRAFT)
 	serializer.WriteData2Front(c, resData, err, "")
 }
 
@@ -77,41 +77,33 @@ func TokenNewOrEdit(c *gin.Context) {
 // @Param tokenIcon formData file true "File to upload"
 // @Param banners formData file true "Files to upload"
 // @Success 200 {object} serializer.Response
-// @Router /api/v1/web-oriented/token-confirm [post]
+// @Router /api/v1/web-oriented/token [put]
 func TokenConfirm(c *gin.Context) {
 	address := jwt.GetAddress(c)
-	param, tokenIconUrls, bannerUrls, otherLinks, pinnedTwitterLinks, errMsg, err := handleTokenNewOrEditArgs(c)
+	param, tokenIconUrls, bannerUrls, errMsg, err := handleTokenNewOrEditArgs(c)
 	if err != nil {
 		serializer.WriteData2Front(c, nil, err, errMsg)
 		return
 	}
-	resData, err := service.TokenConfirm(param, address, tokenIconUrls, bannerUrls, otherLinks, pinnedTwitterLinks, service.QUEUE)
+	resData, err := service.TokenNewOrEdit(param, address, tokenIconUrls, bannerUrls, service.QUEUE)
 	serializer.WriteData2Front(c, resData, err, "")
 }
 
-func handleTokenNewOrEditArgs(c *gin.Context) (*service.TokenCreateOrUpdateDto, []string, []string, []service.LinksDto, []service.LinksDto, string, error) {
+func handleTokenNewOrEditArgs(c *gin.Context) (*service.TokenCreateOrUpdateDto, []string, []string, string, error) {
 	var param *service.TokenCreateOrUpdateDto
 	if err := c.ShouldBind(&param); err != nil {
-		return nil, nil, nil, nil, nil, "args is err", err
+		return nil, nil, nil, "args is err", err
 	}
 
 	tokenIconUrls, err := oss.BatchUploadFile([]*multipart.FileHeader{param.TokenIcon})
 	if err != nil {
-		return nil, nil, nil, nil, nil, "Failed to UploadFile", err
+		return nil, nil, nil, "Failed to UploadFile", err
 	}
 
 	bannerUrls, err := oss.BatchUploadFile(param.Banners)
 	if err != nil {
-		return nil, nil, nil, nil, nil, "Failed to UploadFile", err
+		return nil, nil, nil, "Failed to UploadFile", err
 	}
 
-	otherLinks, err := buildLinks(param.OtherLinkStr)
-	if err != nil {
-		return nil, nil, nil, nil, nil, "args is err", err
-	}
-	pinnedTwitterLinks, err := buildLinks(param.PinnedTwitterLinkStr)
-	if err != nil {
-		return nil, nil, nil, nil, nil, "args is err", err
-	}
-	return param, tokenIconUrls, bannerUrls, otherLinks, pinnedTwitterLinks, "", nil
+	return param, tokenIconUrls, bannerUrls, "", nil
 }

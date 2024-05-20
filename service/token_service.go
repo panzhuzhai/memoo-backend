@@ -3,7 +3,6 @@ package service
 import (
 	"fmt"
 	"gorm.io/gorm"
-	"memoo-backend/constants"
 	"memoo-backend/dto"
 	"memoo-backend/middleware/database"
 	"memoo-backend/model"
@@ -33,8 +32,6 @@ type TokenDetailReqDto struct {
 // TokenCreateOrUpdateDto represents the request body that includes an array of files.
 type TokenCreateOrUpdateDto struct {
 	TokenName                string                `form:"tokenName" binding:"required"` //
-	ContractAddress          string                `form:"contractAddress"`
-	LPContractAddress        string                `form:"lPContractAddress"`
 	TokenDescription         string                `form:"tokenDescription" `
 	PreLaunchDuration        string                `form:"preLaunchDuration" binding:"required"` //IMMEDIATE、1DAY、3DAY
 	PreMarketAcquisition     string                `form:"preMarketAcquisition" binding:"required"`
@@ -72,6 +69,9 @@ type TokenDetailDto struct {
 	OtherLink         []string `json:"otherLinkStr"  `         //[{"linkUrl": "https://twitter.com/W8sFgv45Jt16576","linkUrlType":"twitter"}, {"linkUrl": "https://t.me/layercraftofficialchat","linkUrlType":"telegram"}]
 	PinnedTwitterLink []string `json:"pinnedTwitterLinkStr"  ` //[{"linkUrl": "https://twitter.com/W8sFgv45Jt16576","linkUrlType":"twitter"}, {"linkUrl": "https://t.me/layercraftofficialchat","linkUrlType":"telegram"}]
 	Banners           []string `json:"banners"`
+	CreatorAddress    string   `json:"creatorAddress"`
+	Telegram          string   `json:"telegram"`
+	PinnedTwitter     string   `json:"pinnedTwitter"`
 }
 
 /*******************response dto end*******************************************/
@@ -133,6 +133,9 @@ func TokenDetail(param TokenDetailReqDto, address string) (*TokenDetailDto, erro
 	returnDto.Website = project.Website
 	returnDto.Description = project.Description
 	returnDto.Twitter = project.Twitter
+	returnDto.CreatorAddress = project.CreatorAddress
+	returnDto.Telegram = project.Telegram
+	returnDto.PinnedTwitter = project.PinnedTwitter
 
 	var projectBanners []model.MemooProjectBanner
 	db = database.DB.Table("memoo_project_banners").Where("project_id=?", project.ID).Find(&projectBanners)
@@ -147,40 +150,10 @@ func TokenDetail(param TokenDetailReqDto, address string) (*TokenDetailDto, erro
 		banners = append(banners, item.BannerUrl)
 	}
 	returnDto.Banners = banners
-
-	var projectCreators []model.MemooProjectCreator
-	db = database.DB.Table("memoo_project_creators").Where("project_id=?", project.ID).Find(&projectCreators)
-	if db.Error != nil {
-		return nil, db.Error
-	}
-	if project.ID == 0 {
-		return nil, nil
-	}
-
-	var projectSocials []model.MemooProjectSocial
-	db = database.DB.Table("memoo_project_socials").Where("project_id=?", project.ID).Find(&projectSocials)
-	if db.Error != nil {
-		return nil, db.Error
-	}
-	if project.ID == 0 {
-		return nil, nil
-	}
-	otherLink := make([]string, 0)
-	pinnedTwitterLink := make([]string, 0)
-	for _, item := range projectSocials {
-		if item.MajorCategories == constants.OTHER_LINK {
-			otherLink = append(otherLink, item.SocialUrl)
-		}
-		if item.MajorCategories == constants.PINNED_TWITTER_LINK {
-			pinnedTwitterLink = append(pinnedTwitterLink, item.SocialUrl)
-		}
-	}
-	returnDto.OtherLink = otherLink
-	returnDto.PinnedTwitterLink = pinnedTwitterLink
 	return &returnDto, nil
 }
 
-func TokenNewOrEdit(param *TokenCreateOrUpdateDto, address string, tokenIconUrls []string, bannerUrls []string, otherLinks []LinksDto, pinnedTwitterLinks []LinksDto, status string) (*TokenCreateOrUpdateDto, error) {
+func TokenNewOrEdit(param *TokenCreateOrUpdateDto, address string, tokenIconUrls []string, bannerUrls []string, status string) (*TokenCreateOrUpdateDto, error) {
 	dbTx := database.DB.Begin()
 	var memooToken model.MemooToken
 	dbTx.Table("memoo_tokens").Where("ticker=?", param.Ticker).First(&memooToken)
@@ -190,10 +163,10 @@ func TokenNewOrEdit(param *TokenCreateOrUpdateDto, address string, tokenIconUrls
 	} else {
 		imageUrl = memooToken.ImageUrl
 	}
-	updateStmt := fmt.Sprintf("insert into memoo_tokens(created_at,updated_at,ticker,token_name,contract_address,lp_contract_address,image_url,description,status,address) " +
-		"values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+	updateStmt := fmt.Sprintf("insert into memoo_tokens(created_at,updated_at,ticker,token_name,image_url,description,status,address) " +
+		"values (?, ?, ?, ?, ?, ?, ?, ?) " +
 		"on conflict (ticker) do  update set updated_at=?,token_name=?,image_url=?,description=?")
-	tx := dbTx.Exec(updateStmt, time.Now(), time.Now(), param.Ticker, param.TokenName, param.ContractAddress, param.LPContractAddress, imageUrl, param.TokenDescription, status, address,
+	tx := dbTx.Exec(updateStmt, time.Now(), time.Now(), param.Ticker, param.TokenName, imageUrl, param.TokenDescription, status, address,
 		time.Now(), param.TokenName, imageUrl, param.TokenDescription)
 	if tx.Error != nil {
 		dbTx.Rollback()
@@ -201,42 +174,7 @@ func TokenNewOrEdit(param *TokenCreateOrUpdateDto, address string, tokenIconUrls
 	}
 	paramProject := ProjectCreateOrUpdateDto{Ticker: param.Ticker, ProjectName: param.ProjectName,
 		Description: param.Description, Twitter: param.Twitter}
-	_, err := HandleProjectNewOrEdit(dbTx, &paramProject, address, bannerUrls, otherLinks, pinnedTwitterLinks)
-	if err != nil {
-		dbTx.Rollback()
-		return nil, err
-	}
-	dbTx.Commit()
-	return param, nil
-}
-
-func TokenConfirm(param *TokenCreateOrUpdateDto, address string, tokenIconUrls []string, bannerUrls []string, otherLinks []LinksDto, pinnedTwitterLinks []LinksDto, status string) (*TokenCreateOrUpdateDto, error) {
-	dbTx := database.DB.Begin()
-	err := removeToken(dbTx, param.Ticker)
-	if err != nil {
-		dbTx.Rollback()
-		return nil, err
-	}
-	var memooToken model.MemooToken
-	dbTx.Table("memoo_tokens").Where("ticker=?", param.Ticker).First(&memooToken)
-	imageUrl := ""
-	if tokenIconUrls != nil && len(tokenIconUrls) != 0 {
-		imageUrl = tokenIconUrls[0]
-	} else {
-		imageUrl = memooToken.ImageUrl
-	}
-	updateStmt := fmt.Sprintf("insert into memoo_tokens(created_at,updated_at,ticker,token_name,contract_address,lp_contract_address,image_url,description,status) " +
-		"values (?, ?, ?, ?, ?, ?, ?, ?, ?) " +
-		"on conflict (ticker) do  update set updated_at=?,token_name=?,image_url=?,description=?")
-	tx := dbTx.Exec(updateStmt, time.Now(), time.Now(), param.Ticker, param.TokenName, param.ContractAddress, param.LPContractAddress, imageUrl, param.TokenDescription, status,
-		time.Now(), param.TokenName, imageUrl, param.TokenDescription)
-	if tx.Error != nil {
-		dbTx.Rollback()
-		return nil, tx.Error
-	}
-	paramProject := ProjectCreateOrUpdateDto{Ticker: param.Ticker, ProjectName: param.ProjectName,
-		Description: param.Description, Twitter: param.Twitter}
-	_, err = HandleProjectNewOrEdit(dbTx, &paramProject, address, bannerUrls, otherLinks, pinnedTwitterLinks)
+	_, err := HandleProjectNewOrEdit(dbTx, &paramProject, address, bannerUrls)
 	if err != nil {
 		dbTx.Rollback()
 		return nil, err
