@@ -265,7 +265,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/service.TokenListReqDto"
+                            "$ref": "#/definitions/service.TokenDetailReqDto"
                         }
                     }
                 ],
@@ -273,11 +273,56 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/service.TokenListResp"
+                            "$ref": "#/definitions/service.TokenDetailResp"
                         }
                     }
                 }
             },
+            "post": {
+                "description": "token",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented token",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TokenCreateOrUpdateDto"
+                        }
+                    },
+                    {
+                        "type": "file",
+                        "description": "File to upload",
+                        "name": "tokenIcon",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "Files to upload",
+                        "name": "banners",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/token-confirm": {
             "post": {
                 "description": "token",
                 "consumes": [
@@ -1289,6 +1334,90 @@
                 }
             }
         },
+        "service.TokenDetailDto": {
+            "type": "object",
+            "properties": {
+                "banners": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "contractAddress": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "lPContractAddress": {
+                    "type": "string"
+                },
+                "otherLinkStr": {
+                    "description": "[{\"linkUrl\": \"https://twitter.com/W8sFgv45Jt16576\",\"linkUrlType\":\"twitter\"}, {\"linkUrl\": \"https://t.me/layercraftofficialchat\",\"linkUrlType\":\"telegram\"}]",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "pinnedTwitterLinkStr": {
+                    "description": "[{\"linkUrl\": \"https://twitter.com/W8sFgv45Jt16576\",\"linkUrlType\":\"twitter\"}, {\"linkUrl\": \"https://t.me/layercraftofficialchat\",\"linkUrlType\":\"telegram\"}]",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "preLaunchDuration": {
+                    "description": "IMMEDIATE、1DAY、3DAY",
+                    "type": "string"
+                },
+                "preMarketAcquisition": {
+                    "type": "string"
+                },
+                "projectName": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                },
+                "tokenDescription": {
+                    "type": "string"
+                },
+                "tokenIcon": {
+                    "type": "string"
+                },
+                "tokenName": {
+                    "type": "string"
+                },
+                "twitter": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TokenDetailReqDto": {
+            "type": "object",
+            "properties": {
+                "ticker": {
+                    "type": "string"
+                }
+            }
+        },
+        "service.TokenDetailResp": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "$ref": "#/definitions/service.TokenDetailDto"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
         "service.TokenListDto": {
             "type": "object",
             "properties": {
@@ -1301,7 +1430,10 @@
                 "status": {
                     "type": "string"
                 },
-                "tokenImageUrl": {
+                "ticker": {
+                    "type": "string"
+                },
+                "tokenIcon": {
                     "type": "string"
                 },
                 "tokenName": {

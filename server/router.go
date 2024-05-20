@@ -94,8 +94,10 @@ func NewRouter() *gin.Engine {
 
 		//token
 		webOrientedGroup.POST("token", api.TokenNewOrEdit)
-		webOrientedGroup.GET("token", api.TokenList)
+		webOrientedGroup.POST("token-confirm", api.TokenConfirm)
 
+		webOrientedGroup.GET("token", api.TokenList)
+		webOrientedGroup.GET("token-detail", api.TokenDetail)
 	}
 	return r
 }

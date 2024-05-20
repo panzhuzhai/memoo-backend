@@ -517,6 +517,64 @@ definitions:
     - tokenName
     - twitter
     type: object
+  service.TokenDetailDto:
+    properties:
+      banners:
+        items:
+          type: string
+        type: array
+      contractAddress:
+        type: string
+      description:
+        type: string
+      lPContractAddress:
+        type: string
+      otherLinkStr:
+        description: '[{"linkUrl": "https://twitter.com/W8sFgv45Jt16576","linkUrlType":"twitter"},
+          {"linkUrl": "https://t.me/layercraftofficialchat","linkUrlType":"telegram"}]'
+        items:
+          type: string
+        type: array
+      pinnedTwitterLinkStr:
+        description: '[{"linkUrl": "https://twitter.com/W8sFgv45Jt16576","linkUrlType":"twitter"},
+          {"linkUrl": "https://t.me/layercraftofficialchat","linkUrlType":"telegram"}]'
+        items:
+          type: string
+        type: array
+      preLaunchDuration:
+        description: IMMEDIATE、1DAY、3DAY
+        type: string
+      preMarketAcquisition:
+        type: string
+      projectName:
+        type: string
+      ticker:
+        type: string
+      tokenDescription:
+        type: string
+      tokenIcon:
+        type: string
+      tokenName:
+        type: string
+      twitter:
+        type: string
+      website:
+        type: string
+    type: object
+  service.TokenDetailReqDto:
+    properties:
+      ticker:
+        type: string
+    type: object
+  service.TokenDetailResp:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/service.TokenDetailDto'
+      msg:
+        type: string
+    type: object
   service.TokenListDto:
     properties:
       launchDate:
@@ -525,7 +583,9 @@ definitions:
         type: string
       status:
         type: string
-      tokenImageUrl:
+      ticker:
+        type: string
+      tokenIcon:
         type: string
       tokenName:
         type: string
@@ -1070,15 +1130,45 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/service.TokenListReqDto'
+          $ref: '#/definitions/service.TokenDetailReqDto'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/service.TokenListResp'
+            $ref: '#/definitions/service.TokenDetailResp'
       summary: web-oriented token
+    post:
+      consumes:
+      - multipart/form-data
+      description: token
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TokenCreateOrUpdateDto'
+      - description: File to upload
+        in: formData
+        name: tokenIcon
+        required: true
+        type: file
+      - description: Files to upload
+        in: formData
+        name: banners
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: web-oriented token
+  /api/v1/web-oriented/token-confirm:
     post:
       consumes:
       - multipart/form-data
