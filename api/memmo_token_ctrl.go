@@ -28,13 +28,13 @@ func TokenList(c *gin.Context) {
 	serializer.WriteData2Front(c, paginator, err, "")
 }
 
-// @Summary web-oriented token
+// @Summary web-oriented token-detail
 // @Description  token
 // @Accept  json
 // @Produce  json
-// @Param  request body  service.TokenDetailReqDto  true "TokenList parameters"
+// @Param  request body  service.TokenDetailReqDto  true "TokenDetail parameters"
 // @Success 200 {object} service.TokenDetailResp
-// @Router /api/v1/web-oriented/token [get]
+// @Router /api/v1/web-oriented/token-detail [get]
 func TokenDetail(c *gin.Context) {
 	var param service.TokenDetailReqDto
 	address := jwt.GetAddress(c)

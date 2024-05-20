@@ -276,7 +276,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/service.TokenDetailReqDto"
+                            "$ref": "#/definitions/service.TokenListReqDto"
                         }
                     }
                 ],
@@ -284,7 +284,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/service.TokenDetailResp"
+                            "$ref": "#/definitions/service.TokenListResp"
                         }
                     }
                 }
@@ -373,6 +373,37 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/token-detail": {
+            "get": {
+                "description": "token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented token-detail",
+                "parameters": [
+                    {
+                        "description": "TokenDetail parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TokenDetailReqDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/service.TokenDetailResp"
                         }
                     }
                 }

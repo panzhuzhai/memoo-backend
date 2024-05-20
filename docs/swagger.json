@@ -265,7 +265,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/service.TokenDetailReqDto"
+                            "$ref": "#/definitions/service.TokenListReqDto"
                         }
                     }
                 ],
@@ -273,7 +273,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/service.TokenDetailResp"
+                            "$ref": "#/definitions/service.TokenListResp"
                         }
                     }
                 }
@@ -362,6 +362,37 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/serializer.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/token-detail": {
+            "get": {
+                "description": "token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented token-detail",
+                "parameters": [
+                    {
+                        "description": "TokenDetail parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/service.TokenDetailReqDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/service.TokenDetailResp"
                         }
                     }
                 }

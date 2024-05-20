@@ -1130,14 +1130,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/service.TokenDetailReqDto'
+          $ref: '#/definitions/service.TokenListReqDto'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/service.TokenDetailResp'
+            $ref: '#/definitions/service.TokenListResp'
       summary: web-oriented token
     post:
       consumes:
@@ -1198,6 +1198,26 @@ paths:
           schema:
             $ref: '#/definitions/serializer.Response'
       summary: web-oriented token
+  /api/v1/web-oriented/token-detail:
+    get:
+      consumes:
+      - application/json
+      description: token
+      parameters:
+      - description: TokenDetail parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/service.TokenDetailReqDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.TokenDetailResp'
+      summary: web-oriented token-detail
   /api/v1/web-oriented/user:
     post:
       consumes:
