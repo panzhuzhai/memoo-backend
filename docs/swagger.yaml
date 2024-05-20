@@ -1140,7 +1140,27 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/service.UserViewOthersResp'
-      summary: web-web-oriented user-view-others
+      summary: web-oriented user-view-others
+  /api/v1/web-oriented/user-view-others-list:
+    get:
+      consumes:
+      - application/json
+      description: User
+      parameters:
+      - description: UserViewOthersList parameters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PageDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.UserViewOthersListResp'
+      summary: web-oriented user-view-others
   /api/v1/web-unauthorized/top-creators:
     get:
       consumes:
@@ -1221,24 +1241,4 @@ paths:
           schema:
             $ref: '#/definitions/service.TrendingTokensResp'
       summary: web-unauthorized trending-tokens
-  /api/v1/web-web-oriented/user-view-others-list:
-    get:
-      consumes:
-      - application/json
-      description: User
-      parameters:
-      - description: UserViewOthersList parameters
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/dto.PageDto'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/service.UserViewOthersListResp'
-      summary: web-web-oriented user-view-others
 swagger: "2.0"

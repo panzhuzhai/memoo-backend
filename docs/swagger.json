@@ -362,12 +362,43 @@
                 "produces": [
                     "application/json"
                 ],
-                "summary": "web-web-oriented user-view-others",
+                "summary": "web-oriented user-view-others",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/service.UserViewOthersResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/web-oriented/user-view-others-list": {
+            "get": {
+                "description": "User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "web-oriented user-view-others",
+                "parameters": [
+                    {
+                        "description": "UserViewOthersList parameters",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.PageDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/service.UserViewOthersListResp"
                         }
                     }
                 }
@@ -492,37 +523,6 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/service.TrendingTokensResp"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/web-web-oriented/user-view-others-list": {
-            "get": {
-                "description": "User",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "web-web-oriented user-view-others",
-                "parameters": [
-                    {
-                        "description": "UserViewOthersList parameters",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/dto.PageDto"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/service.UserViewOthersListResp"
                         }
                     }
                 }

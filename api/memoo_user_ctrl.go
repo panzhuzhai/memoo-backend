@@ -9,7 +9,7 @@ import (
 	"memoo-backend/service"
 )
 
-// @Summary web-web-oriented user-view-others
+// @Summary web-oriented user-view-others
 // @Description  User
 // @Accept  json
 // @Produce  json
@@ -21,13 +21,13 @@ func UserViewOthers(c *gin.Context) {
 	serializer.WriteData2Front(c, resp, err, "")
 }
 
-// @Summary web-web-oriented user-view-others
+// @Summary web-oriented user-view-others
 // @Description  User
 // @Accept  json
 // @Produce  json
 // @Param  request body  dto.PageDto  true "UserViewOthersList parameters"
 // @Success 200 {object} service.UserViewOthersListResp
-// @Router /api/v1/web-web-oriented/user-view-others-list [get]
+// @Router /api/v1/web-oriented/user-view-others-list [get]
 func UserViewOthersList(c *gin.Context) {
 	var param dto.PageDto
 	address := jwt.GetAddress(c)
